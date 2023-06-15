@@ -1,0 +1,72 @@
+name: Bug Report
+description: File a bug report.
+title: "[Bug]: "
+assignees:
+  - cuaies
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report! ✨
+  - type: textarea
+    id: issue-details
+    attributes:
+      label: Issue Details
+      description: Please precisely describe the issue you've encountered.
+      placeholder: Issue details...
+    validations:
+      required: true
+  - type: input
+    id: project-version
+    attributes:
+      label: Project Version
+      description: What version of ares were you running?
+      placeholder: 1.0.0
+    validations:
+      required: true
+  - type: input
+    id: node-version
+    attributes:
+      label: Node.js Version
+      description: What version of node were you running?
+      placeholder: 18.13.0
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating System
+      description: What operating system were you using?
+      multiple: false
+      options:
+        - Windows (32-bit)
+        - Windows (64-bit)
+        - macOS
+        - Linux
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: code
+    attributes:
+      label: Relevant Code Snippet
+      description: Please insert a snippet of the problem code (if any). This will be automatically formatted into code, so no need for backticks.
+      render: shell
+    validations:
+      required: false
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant Log Output
+      description: Please copy and paste any relevant log output (if any). This will be automatically formatted into code, so no need for backticks.
+      render: shell
+    validations:
+      required: false
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/Cuaies/ares/blob/master/.github/CODE_OF_CONDUCT.md).
+      options:
+        - label: I agree to follow this project's Code of Conduct.
+          required: true
