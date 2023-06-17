@@ -1,7 +1,4 @@
 {
-    "{src,test}/**/*.{js,ts}": [
-      "eslint .",
-      "prettier --check"
-    ],
-    "!**/*.{js,ts}": "prettier --check"
+  "{src,test}/**/*.{js,ts}": ["eslint .", "prettier --check"],
+  "!**/*.{js,ts}": "prettier --check"
 }
