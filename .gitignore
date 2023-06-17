@@ -34,3 +34,6 @@ coverage/
 
 # ESLint
 .eslintignore
+
+# Prettier
+.prettierignore
