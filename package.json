@@ -5,9 +5,9 @@
   "scripts": {
     "prepare": "husky install",
     "build": "tsc -b",
-    "lint": "eslint src --ext .js --ext .ts",
+    "lint": "eslint . --ext .js --ext .ts",
     "lint:fix": "npm run lint -- --fix",
-    "prettier": "npx prettier src --check",
+    "prettier": "npx prettier . --ignore-unknown --check",
     "prettier:fix": "npm run prettier -- --write"
   },
   "devDependencies": {
