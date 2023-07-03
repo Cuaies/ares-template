@@ -2,6 +2,8 @@ import { transports, createLogger, Logger } from "winston";
 import { join } from "path";
 import { logFileFormat, consoleFormat } from "./formats";
 import { BaseModule } from "../../lib/classes/baseModule";
+import { LogMessagesCodes } from "../../ts/enums";
+import { logMessagesEntries } from "./messages";
 
 const { File, Console } = transports;
 const LOGS_DIR_PATH = join(__dirname, "../../../logs");
@@ -39,6 +41,16 @@ class AresLogger extends BaseModule {
         })
       );
     }
+  }
+
+  public log(code: LogMessagesCodes, ...args: any[]): void;
+  public log(error: Error): void;
+  public log(messageType: LogMessagesCodes | Error, args?: any[]): void {
+    if (messageType instanceof Error) {
+      this.logger.error(messageType.message);
+      return;
+    }
+    this.logger.log({ ...logMessagesEntries[messageType], ...args });
   }
 }
 
