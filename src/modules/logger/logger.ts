@@ -43,14 +43,13 @@ export class AresLogger extends BaseModule {
     }
   }
 
-  public log(code: LogMessagesCodes, ...args: any[]): void;
-  public log(error: Error): void;
-  public log(messageType: LogMessagesCodes | Error, args?: any[]): void {
+  public log(code: LogMessagesCodes, ...args: any[]): Logger;
+  public log(error: Error): Logger;
+  public log(messageType: LogMessagesCodes | Error, args?: any[]): Logger {
     if (messageType instanceof Error) {
-      this.instance.error(messageType.message);
-      return;
+      return this.instance.error(messageType.message);
     }
-    this.instance.log({ ...logMessagesEntries[messageType], ...args });
+    return this.instance.log({ ...logMessagesEntries[messageType], ...args });
   }
 }
 
