@@ -11,15 +11,15 @@ const LOGS_DIR_PATH = join(__dirname, "../../../logs");
 /**
  * Client logger class that wraps the winston logger.
  */
-class AresLogger extends BaseModule {
+export class AresLogger extends BaseModule {
   /**
    * Winston logger instance.
    */
-  readonly logger: Logger;
+  readonly instance: Logger;
 
   constructor() {
     super();
-    this.logger = createLogger({
+    this.instance = createLogger({
       level: this._production ? "info" : "silly",
       transports: [
         new File({
@@ -35,7 +35,7 @@ class AresLogger extends BaseModule {
     });
 
     if (!this._production) {
-      this.logger.add(
+      this.instance.add(
         new Console({
           format: consoleFormat,
         })
@@ -47,10 +47,10 @@ class AresLogger extends BaseModule {
   public log(error: Error): void;
   public log(messageType: LogMessagesCodes | Error, args?: any[]): void {
     if (messageType instanceof Error) {
-      this.logger.error(messageType.message);
+      this.instance.error(messageType.message);
       return;
     }
-    this.logger.log({ ...logMessagesEntries[messageType], ...args });
+    this.instance.log({ ...logMessagesEntries[messageType], ...args });
   }
 }
 
