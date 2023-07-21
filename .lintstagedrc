@@ -1,4 +1,8 @@
 {
-  "{src,test}/**/*.{js,ts}": ["eslint src", "prettier --check"],
+  "{src,test}/**/*.{js,ts}": [
+    "eslint src",
+    "prettier --check",
+    "npm test -- --silent --no-coverage --passWithNoTests"
+  ],
   "!**/*.{js,ts}": "prettier --check"
 }
