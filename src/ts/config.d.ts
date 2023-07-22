@@ -5,6 +5,7 @@ type AresConfig = typeof DefaultConfig;
 
 declare module "config" {
   export interface IConfig extends c.IConfig, AresConfig {
-    // TODO: Override `get()` to only accept `AresConfig` keys.
+    // TODO: *Properly Override `get()` to only accept `AresConfig` keys.
+    get<T>(setting: keyof AresConfig): T;
   }
 }
