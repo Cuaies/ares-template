@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "typeRoots": ["./node_modules/@types", "./ts"],
     "target": "es2022",
     "module": "commonjs",
     "rootDir": "./src",
@@ -13,5 +14,6 @@
     "useUnknownInCatchVariables": true,
     "alwaysStrict": true,
     "skipLibCheck": true
-  }
+  },
+  "include": ["./src"]
 }
