@@ -5,6 +5,7 @@ module.exports = {
   client: {
     /**
      * Token used to authenticate with.
+     * @type string
      */
     token: null,
     /**

@@ -8,7 +8,5 @@ const client = new AresClient({
 });
 
 (async () => {
-  await client
-    .init(config.client.token as unknown as string)
-    .catch((e: Error) => logger.log(e));
+  await client.init(config.client.token).catch((e: Error) => logger.log(e));
 })();

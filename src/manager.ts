@@ -4,7 +4,7 @@ import { LogMessagesCodes } from "./ts/enums";
 import path from "path";
 import config from "config";
 
-const token = config.client.token as unknown as string;
+const token = config.client.token;
 const manager = new ShardingManager(path.join(__dirname, "./client.js"), {
   totalShards: "auto",
   token,
