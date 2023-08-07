@@ -32,6 +32,11 @@ export class AresLogger extends BaseModule {
           format: logFileFormat,
         }),
       ],
+      exceptionHandlers: [
+        new File({
+          filename: join(LOGS_DIR_PATH, "exceptions.json"),
+        }),
+      ],
     });
 
     if (!this._production) {
