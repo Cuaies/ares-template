@@ -8,6 +8,66 @@ describe("AresLogger", () => {
     logger = new AresLogger();
   });
 
+  describe("LogEntryFormatter", () => {
+    describe("errors", () => {
+      test("should properly format entries w/o scope", () => {
+        const entry = LogEntryFormatter.prepareEntry(
+          null,
+          LogErrorMessagesCodes.TEST
+        );
+        const desiredEntry = {
+          level: "error",
+          message: `[${
+            LogErrorMessagesCodes[LogErrorMessagesCodes.TEST]
+          }] ${logErrorMessages[LogErrorMessagesCodes.TEST]()}`,
+        };
+
+        expect(entry).toEqual(desiredEntry);
+      });
+
+      test("should properly format entries with scope", () => {
+        const entry = LogEntryFormatter.prepareEntry(
+          LogScopes.TEST,
+          LogErrorMessagesCodes.TEST
+        );
+        const desiredEntry = {
+          level: "error",
+          message: `[${LogScopes[LogScopes.TEST]}:${
+            LogErrorMessagesCodes[LogErrorMessagesCodes.TEST]
+          }] ${logErrorMessages[LogErrorMessagesCodes.TEST]()}`,
+        };
+
+        expect(entry).toEqual(desiredEntry);
+      });
+    });
+
+    describe("messages", () => {
+      test("should properly format entries w/o scope", () => {
+        const entry = LogEntryFormatter.prepareEntry(
+          null,
+          LogMessagesCodes.TEST
+        );
+        const desiredEntry = logMessages[LogMessagesCodes.TEST]();
+
+        expect(entry).toEqual(desiredEntry);
+      });
+
+      test("should properly format entries with scope", () => {
+        const entry = LogEntryFormatter.prepareEntry(
+          LogScopes.TEST,
+          LogMessagesCodes.TEST
+        );
+        const rawEntry = logMessages[LogMessagesCodes.TEST]();
+        const desiredEntry = {
+          level: rawEntry.level,
+          message: `[${LogScopes[LogScopes.TEST]}] ${rawEntry.message}`,
+        };
+
+        expect(entry).toEqual(desiredEntry);
+      });
+    });
+  });
+
   describe("initialization", () => {
     test("should properly initialize", () => {
       expect(logger).toBeInstanceOf(AresLogger);
