@@ -1,6 +1,7 @@
 /**
- * Enum containing the codes of the log messages entries.
+ * Represents the codes for the log messages, other than errors.
  */
 export enum LogMessagesCodes {
-  TEST,
+  TEST = 100,
+  TESTARGS,
 }
