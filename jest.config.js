@@ -4,4 +4,9 @@ module.exports = {
   testEnvironment: "node",
   roots: ["./src/tests"],
   collectCoverage: true,
+  coveragePathIgnorePatterns: [
+    "<rootDir>/dist/",
+    "<rootDir>/node_modules/",
+    "<rootDir>/src/modules/logger/messages",
+  ],
 };
