@@ -4,4 +4,12 @@
 export enum LogMessagesCodes {
   TEST = 100,
   TESTARGS,
+
+  ShardingManagerShardCreate,
+  ShardingManagerShardReady,
+  ShardingManagerShardDeath,
+  ShardingManagerShardReconnecting,
+  ShardingManagerSuccess,
+
+  ClientAttemptedLogin,
 }

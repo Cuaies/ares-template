@@ -3,4 +3,6 @@
  */
 export enum LogScopes {
   TEST,
+  ShardingManager,
+  Client,
 }

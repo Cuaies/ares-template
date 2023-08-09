@@ -1,6 +1,6 @@
 import { Client, ClientOptions } from "discord.js";
 import { logger } from "../../modules/logger/logger";
-import { LogMessagesCodes } from "../../ts/enums";
+import { LogMessagesCodes, LogScopes } from "../../ts/enums";
 
 /**
  * Client class used to interact with the Discord API.
@@ -14,7 +14,7 @@ export class AresClient extends Client {
    * Initializes the client.
    */
   async init(token: string) {
-    logger.log(LogMessagesCodes.ClientAttemptedLogin);
+    logger.log(LogScopes.Client, LogMessagesCodes.ClientAttemptedLogin);
     await this.login(token);
   }
 }
