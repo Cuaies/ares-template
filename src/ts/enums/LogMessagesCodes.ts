@@ -11,5 +11,6 @@ export enum LogMessagesCodes {
   ShardingManagerShardReconnecting,
   ShardingManagerSuccess,
 
-  ClientAttemptedLogin,
+  ClientAttemptingLogin,
+  ClientReady,
 }

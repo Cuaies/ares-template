@@ -11,7 +11,8 @@ const {
   ShardingManagerShardReconnecting,
   ShardingManagerSuccess,
 
-  ClientAttemptedLogin,
+  ClientAttemptingLogin,
+  ClientReady,
 } = LogMessagesCodes;
 
 export const logMessages = {
@@ -57,10 +58,16 @@ export const logMessages = {
       message: `Manager successfully spawned shards [amount=${amount}]`,
     };
   },
-  [ClientAttemptedLogin]: (): LogEntry => {
+  [ClientAttemptingLogin]: (shard: string): LogEntry => {
     return {
       level: "verbose",
-      message: `Attempting client login...`,
+      message: `Attempting login [shard=${shard}]`,
+    };
+  },
+  [ClientReady]: (shard: string, username: string): LogEntry => {
+    return {
+      level: "info",
+      message: `Login successful [shard=${shard}] [username=${username}]`,
     };
   },
 };
