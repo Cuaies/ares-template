@@ -1,11 +1,14 @@
-import { transports, createLogger, Logger } from "winston";
+import { transports, createLogger, Logger, format } from "winston";
 import { join } from "path";
 import { logFileFormat, consoleFormat } from "./formats";
 import { BaseModule } from "../../lib/classes/baseModule";
-import { LogMessagesCodes } from "../../ts/enums";
-import { logMessagesEntries } from "./messages";
+import { LogMessagesCodes, LogScopes } from "../../ts/enums";
+import { logMessages } from "./messages";
+import { isLogScope } from "../../utils/typeguards";
+import { LogEntryFormatter } from "./formatter";
 
 const { File, Console } = transports;
+const { combine, timestamp, ms, errors, json } = format;
 const LOGS_DIR_PATH = join(__dirname, "../../../logs");
 
 /**
@@ -21,6 +24,8 @@ export class AresLogger extends BaseModule {
     super();
     this.instance = createLogger({
       level: this._production ? "info" : "silly",
+      silent: process.env.JEST_WORKER_ID !== undefined,
+      format: combine(timestamp(), ms(), errors({ stack: true }), json()),
       transports: [
         new File({
           filename: join(LOGS_DIR_PATH, "error.log"),
@@ -32,24 +37,46 @@ export class AresLogger extends BaseModule {
           format: logFileFormat,
         }),
       ],
+      exceptionHandlers: [
+        new File({
+          filename: join(LOGS_DIR_PATH, "exceptions.json"),
+        }),
+      ],
     });
 
-    if (!this._production) {
-      this.instance.add(
-        new Console({
-          format: consoleFormat,
-        })
-      );
-    }
+    this.instance.add(
+      new Console({
+        format: consoleFormat,
+      })
+    );
   }
 
-  public log(code: LogMessagesCodes, ...args: any[]): Logger;
   public log(error: Error): Logger;
-  public log(messageType: LogMessagesCodes | Error, args?: any[]): Logger {
-    if (messageType instanceof Error) {
-      return this.instance.error(messageType.message);
+  public log<Code extends LogMessagesCodes>(
+    scope: LogScopes,
+    code: Code,
+    ...args: Parameters<(typeof logMessages)[Code]>
+  ): Logger;
+  public log<Code extends LogMessagesCodes>(
+    scopeOrError: LogScopes | Error,
+    code?: Code,
+    ...args: Parameters<(typeof logMessages)[Code]>
+  ): Logger {
+    if (scopeOrError instanceof Error) {
+      return this.instance.error(scopeOrError);
     }
-    return this.instance.log({ ...logMessagesEntries[messageType], ...args });
+
+    if (isLogScope(scopeOrError) && code) {
+      return this.instance.log(
+        LogEntryFormatter.prepareEntry<LogMessagesCodes>(
+          scopeOrError,
+          code,
+          ...args
+        )
+      );
+    }
+
+    return this.instance;
   }
 }
 

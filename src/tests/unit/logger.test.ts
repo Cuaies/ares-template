@@ -1,11 +1,78 @@
+import { AresError } from "../../lib/classes/error";
+import { LogEntryFormatter } from "../../modules/logger/formatter";
 import { AresLogger } from "../../modules/logger/logger";
-import { LogMessagesCodes } from "../../ts/enums";
+import { logErrorMessages, logMessages } from "../../modules/logger/messages";
+import {
+  LogErrorMessagesCodes,
+  LogMessagesCodes,
+  LogScopes,
+} from "../../ts/enums";
 
 describe("AresLogger", () => {
   let logger: AresLogger;
 
   beforeAll(() => {
     logger = new AresLogger();
+  });
+
+  describe("LogEntryFormatter", () => {
+    describe("errors", () => {
+      test("should properly format entries w/o scope", () => {
+        const entry = LogEntryFormatter.prepareEntry(
+          null,
+          LogErrorMessagesCodes.TEST
+        );
+        const desiredEntry = {
+          level: "error",
+          message: `[${
+            LogErrorMessagesCodes[LogErrorMessagesCodes.TEST]
+          }] ${logErrorMessages[LogErrorMessagesCodes.TEST]()}`,
+        };
+
+        expect(entry).toEqual(desiredEntry);
+      });
+
+      test("should properly format entries with scope", () => {
+        const entry = LogEntryFormatter.prepareEntry(
+          LogScopes.TEST,
+          LogErrorMessagesCodes.TEST
+        );
+        const desiredEntry = {
+          level: "error",
+          message: `[${LogScopes[LogScopes.TEST]}:${
+            LogErrorMessagesCodes[LogErrorMessagesCodes.TEST]
+          }] ${logErrorMessages[LogErrorMessagesCodes.TEST]()}`,
+        };
+
+        expect(entry).toEqual(desiredEntry);
+      });
+    });
+
+    describe("messages", () => {
+      test("should properly format entries w/o scope", () => {
+        const entry = LogEntryFormatter.prepareEntry(
+          null,
+          LogMessagesCodes.TEST
+        );
+        const desiredEntry = logMessages[LogMessagesCodes.TEST]();
+
+        expect(entry).toEqual(desiredEntry);
+      });
+
+      test("should properly format entries with scope", () => {
+        const entry = LogEntryFormatter.prepareEntry(
+          LogScopes.TEST,
+          LogMessagesCodes.TEST
+        );
+        const rawEntry = logMessages[LogMessagesCodes.TEST]();
+        const desiredEntry = {
+          level: rawEntry.level,
+          message: `[${LogScopes[LogScopes.TEST]}] ${rawEntry.message}`,
+        };
+
+        expect(entry).toEqual(desiredEntry);
+      });
+    });
   });
 
   describe("initialization", () => {
@@ -27,24 +94,27 @@ describe("AresLogger", () => {
   });
 
   describe("log()", () => {
-    test("should log message based on the provided code and arguments", () => {
-      const code = LogMessagesCodes.TEST;
-      const args = { test: "test", test2: 1 };
+    test("should log a message based on the provided scope and code", () => {
       const spy = jest.spyOn(logger, "log");
+      logger.log(LogScopes.TEST, LogMessagesCodes.TEST);
 
-      logger.log(code, args);
-      expect(spy).toHaveBeenCalledWith(code, args);
-      expect(spy).toReturnWith(logger.instance);
+      expect(spy).toHaveBeenCalledWith(LogScopes.TEST, LogMessagesCodes.TEST);
     });
 
-    test("should log an error when an Error object is passed", () => {
-      const errorMessage = "Test error message";
-      const error = new Error(errorMessage);
+    test("should log generic errors", () => {
       const spy = jest.spyOn(logger, "log");
+      const err = new Error("test");
+      logger.log(err);
 
-      logger.log(error);
-      expect(spy).toHaveBeenCalledWith(error);
-      expect(spy).toReturnWith(logger.instance);
+      expect(spy).toHaveBeenCalledWith(err);
+    });
+
+    test("should log custom errors", () => {
+      const spy = jest.spyOn(logger, "log");
+      const err = new AresError(null, LogErrorMessagesCodes.TEST);
+      logger.log(err);
+
+      expect(spy).toHaveBeenCalledWith(err);
     });
   });
 });
