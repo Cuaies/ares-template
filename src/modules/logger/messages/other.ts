@@ -22,6 +22,10 @@ const {
   EventsManagerUncachedEventsResult,
 
   FileIteration,
+  StringLogVerbose,
+  StringLogDebug,
+  StringLogWarn,
+  StringLogError,
 } = LogMessagesCodes;
 
 export const logMessages = {
@@ -117,6 +121,30 @@ export const logMessages = {
     return {
       level: "debug",
       message: `File iteration [handler=${handler}, file=${file}]`,
+    };
+  },
+  [StringLogVerbose]: (message: string): LogEntry => {
+    return {
+      level: "verbose",
+      message,
+    };
+  },
+  [StringLogDebug]: (message: string): LogEntry => {
+    return {
+      level: "debug",
+      message,
+    };
+  },
+  [StringLogWarn]: (message: string): LogEntry => {
+    return {
+      level: "warn",
+      message,
+    };
+  },
+  [StringLogError]: (message: string): LogEntry => {
+    return {
+      level: "error",
+      message,
     };
   },
 };

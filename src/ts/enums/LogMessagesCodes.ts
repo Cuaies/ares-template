@@ -21,4 +21,8 @@ export enum LogMessagesCodes {
   EventsManagerUncachedEventsResult,
 
   FileIteration,
+  StringLogVerbose,
+  StringLogDebug,
+  StringLogWarn,
+  StringLogError,
 }
