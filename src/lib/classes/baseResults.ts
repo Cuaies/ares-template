@@ -1,7 +1,7 @@
 import { LogScopes } from "../../ts/enums";
 import { ResultsStatus } from "../../ts/types";
 
-export abstract class BaseResults<T> {
+export abstract class AresBaseResults<T> {
   /**
    * The scope of the results.
    */
