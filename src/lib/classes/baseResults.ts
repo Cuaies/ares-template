@@ -1,11 +1,19 @@
+import { LogScopes } from "../../ts/enums";
 import { ResultsStatus } from "../../ts/types";
 
 export abstract class BaseResults<T> {
+  /**
+   * The scope of the results.
+   */
+  readonly scope: LogScopes;
+
   protected _cached: T[];
   protected _uncached: T[];
   protected _disabled: T[];
 
-  constructor() {
+  constructor(scope: LogScopes) {
+    this.scope = scope;
+
     this._cached = [];
     this._uncached = [];
     this._disabled = [];
