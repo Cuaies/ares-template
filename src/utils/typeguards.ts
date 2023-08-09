@@ -1,3 +1,4 @@
+import { Events } from "discord.js";
 import {
   LogErrorMessagesCodes,
   LogMessagesCodes,
@@ -14,3 +15,7 @@ export const isErrorLogMessageCode = (
   str: unknown
 ): str is LogErrorMessagesCodes =>
   Object.values(LogErrorMessagesCodes).some((enumValue) => enumValue === str);
+
+export const isEvents = (str: unknown): str is keyof typeof Events => {
+  return Object.values(Events).some((enumValue) => enumValue === str);
+};

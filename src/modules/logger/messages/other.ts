@@ -15,8 +15,13 @@ const {
   ClientAttemptingLogin,
   ClientReady,
 
+  EventsManagerDuplicatedHandler,
+  EventsManagerInvalidHandler,
+  EventsManagerListeningForEvent,
   EventsManagerCachedEventsResult,
   EventsManagerUncachedEventsResult,
+
+  FileIteration,
 } = LogMessagesCodes;
 
 export const logMessages = {
@@ -74,13 +79,31 @@ export const logMessages = {
       message: `Login successful [shard=${shard}] [username=${username}]`,
     };
   },
+  [EventsManagerDuplicatedHandler]: (handler: string): LogEntry => {
+    return {
+      level: "warn",
+      message: `Duplicated handler name [handler=${handler}]`,
+    };
+  },
+  [EventsManagerInvalidHandler]: (handler: string): LogEntry => {
+    return {
+      level: "warn",
+      message: `Handler name does not match allowed values [handler=${handler}]`,
+    };
+  },
+  [EventsManagerListeningForEvent]: (event: string): LogEntry => {
+    return {
+      level: "verbose",
+      message: `Listening for event [event=${event}]`,
+    };
+  },
   [EventsManagerCachedEventsResult]: (
     loadedCount: number,
     prototypesCount: number,
     status: ResultsStatus["ok"]
   ): LogEntry => {
     return {
-      level: "verbose",
+      level: "info",
       message: `Loaded ${loadedCount} handlers [${prototypesCount} current prototype(s)] [${status}]`,
     };
   },
@@ -88,6 +111,12 @@ export const logMessages = {
     return {
       level: "warn",
       message: `Invalid handlers list: ${uncachedCount}`,
+    };
+  },
+  [FileIteration]: (handler: string, file: string): LogEntry => {
+    return {
+      level: "debug",
+      message: `File iteration [handler=${handler}, file=${file}]`,
     };
   },
 };

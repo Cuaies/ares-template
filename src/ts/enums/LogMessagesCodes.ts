@@ -14,6 +14,11 @@ export enum LogMessagesCodes {
   ClientAttemptingLogin,
   ClientReady,
 
+  EventsManagerDuplicatedHandler,
+  EventsManagerInvalidHandler,
+  EventsManagerListeningForEvent,
   EventsManagerCachedEventsResult,
   EventsManagerUncachedEventsResult,
+
+  FileIteration,
 }
