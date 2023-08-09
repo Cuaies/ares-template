@@ -24,6 +24,7 @@ export class AresLogger extends BaseModule {
     super();
     this.instance = createLogger({
       level: this._production ? "info" : "silly",
+      silent: process.env.JEST_WORKER_ID !== undefined,
       format: combine(timestamp(), ms(), errors({ stack: true }), json()),
       transports: [
         new File({
