@@ -13,4 +13,7 @@ export enum LogMessagesCodes {
 
   ClientAttemptingLogin,
   ClientReady,
+
+  EventsManagerCachedEventsResult,
+  EventsManagerUncachedEventsResult,
 }

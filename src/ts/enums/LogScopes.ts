@@ -6,4 +6,5 @@ export enum LogScopes {
   Logger,
   ShardingManager,
   Client,
+  EventsManager,
 }

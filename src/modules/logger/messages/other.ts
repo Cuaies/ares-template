@@ -1,5 +1,6 @@
 import { LogEntry } from "winston";
 import { LogMessagesCodes } from "../../../ts/enums";
+import { ResultsStatus } from "../../../ts/types";
 
 const {
   TEST,
@@ -13,6 +14,9 @@ const {
 
   ClientAttemptingLogin,
   ClientReady,
+
+  EventsManagerCachedEventsResult,
+  EventsManagerUncachedEventsResult,
 } = LogMessagesCodes;
 
 export const logMessages = {
@@ -68,6 +72,22 @@ export const logMessages = {
     return {
       level: "info",
       message: `Login successful [shard=${shard}] [username=${username}]`,
+    };
+  },
+  [EventsManagerCachedEventsResult]: (
+    loadedCount: number,
+    prototypesCount: number,
+    status: ResultsStatus["ok"]
+  ): LogEntry => {
+    return {
+      level: "verbose",
+      message: `Loaded ${loadedCount} handlers [${prototypesCount} current prototype(s)] [${status}]`,
+    };
+  },
+  [EventsManagerUncachedEventsResult]: (uncachedCount: string[]) => {
+    return {
+      level: "warn",
+      message: `Invalid handlers list: ${uncachedCount}`,
     };
   },
 };
