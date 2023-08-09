@@ -1,3 +1,4 @@
+import { LogScopes } from "../../ts/enums";
 import { BaseResults } from "./baseResults";
 import { AresCacheManager } from "./cacheManager";
 import { AresClient } from "./client";
@@ -16,8 +17,9 @@ export abstract class AresBaseManager extends AresCacheManager {
    */
   abstract readonly results: InstanceType<typeof BaseResults>;
 
-  constructor(client: AresClient) {
-    super();
+  constructor(client: AresClient, scope: LogScopes) {
+    super(scope);
+
     this.client = client;
   }
 

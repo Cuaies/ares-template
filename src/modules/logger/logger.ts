@@ -1,7 +1,7 @@
 import { transports, createLogger, Logger, format } from "winston";
 import { join } from "path";
 import { logFileFormat, consoleFormat } from "./formats";
-import { BaseModule } from "../../lib/classes/baseModule";
+import { AresBaseModule } from "../../lib/classes/baseModule";
 import { LogMessagesCodes, LogScopes } from "../../ts/enums";
 import { logMessages } from "./messages";
 import { isLogScope } from "../../utils/typeguards";
@@ -14,14 +14,15 @@ const LOGS_DIR_PATH = join(__dirname, "../../../logs");
 /**
  * Client logger class that wraps the winston logger.
  */
-export class AresLogger extends BaseModule {
+export class AresLogger extends AresBaseModule {
   /**
    * Winston logger instance.
    */
   readonly instance: Logger;
 
   constructor() {
-    super();
+    super(LogScopes.Logger);
+
     this.instance = createLogger({
       level: this._production ? "info" : "silly",
       silent: process.env.JEST_WORKER_ID !== undefined,
