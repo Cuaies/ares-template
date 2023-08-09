@@ -1,4 +1,4 @@
-import { transports, createLogger, Logger } from "winston";
+import { transports, createLogger, Logger, format } from "winston";
 import { join } from "path";
 import { logFileFormat, consoleFormat } from "./formats";
 import { BaseModule } from "../../lib/classes/baseModule";
@@ -8,9 +8,8 @@ import { isLogScope } from "../../utils/typeguards";
 import { LogEntryFormatter } from "./formatter";
 
 const { File, Console } = transports;
+const { combine, timestamp, ms, errors, json } = format;
 const LOGS_DIR_PATH = join(__dirname, "../../../logs");
-
-// TODO: Fix errors being improperly logged to the transports.
 
 /**
  * Client logger class that wraps the winston logger.
@@ -25,6 +24,7 @@ export class AresLogger extends BaseModule {
     super();
     this.instance = createLogger({
       level: this._production ? "info" : "silly",
+      format: combine(timestamp(), ms(), errors({ stack: true }), json()),
       transports: [
         new File({
           filename: join(LOGS_DIR_PATH, "error.log"),

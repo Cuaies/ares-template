@@ -21,6 +21,7 @@ export class AresError<
       ...args
     );
     super(message);
+    this.name = "AresError";
     this.code = LogErrorMessagesCodes[
       code
     ] as keyof typeof LogErrorMessagesCodes;
