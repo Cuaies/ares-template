@@ -21,6 +21,10 @@ const {
   EventsManagerCachedEventsResult,
   EventsManagerUncachedEventsResult,
 
+  CommandsManagerCachedCommandsResult,
+  CommandsManagerCachesCommandsList,
+  CommandsManagerUncachedCommandsList,
+
   FileIteration,
   StringLogVerbose,
   StringLogDebug,
@@ -115,6 +119,28 @@ export const logMessages = {
     return {
       level: "warn",
       message: `Invalid handlers list: ${uncachedCount}`,
+    };
+  },
+  [CommandsManagerCachedCommandsResult]: (
+    loadedCount: number,
+    prototypesCount: number,
+    status: ResultsStatus["ok"]
+  ) => {
+    return {
+      level: "info",
+      message: `Loaded ${loadedCount} commands [${prototypesCount} current prototype(s)] [${status}]`,
+    };
+  },
+  [CommandsManagerCachesCommandsList]: (commands: string[]) => {
+    return {
+      level: "verbose",
+      message: `Commands list: ${commands}`,
+    };
+  },
+  [CommandsManagerUncachedCommandsList]: (commands: string[]) => {
+    return {
+      level: "warn",
+      message: `Invalid commands list: ${commands}`,
     };
   },
   [FileIteration]: (handler: string, file: string): LogEntry => {

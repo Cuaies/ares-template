@@ -20,6 +20,10 @@ export enum LogMessagesCodes {
   EventsManagerCachedEventsResult,
   EventsManagerUncachedEventsResult,
 
+  CommandsManagerCachedCommandsResult,
+  CommandsManagerCachesCommandsList,
+  CommandsManagerUncachedCommandsList,
+
   FileIteration,
   StringLogVerbose,
   StringLogDebug,
