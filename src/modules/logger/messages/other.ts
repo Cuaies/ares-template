@@ -24,6 +24,8 @@ const {
   CommandsManagerCachedCommandsResult,
   CommandsManagerCachesCommandsList,
   CommandsManagerUncachedCommandsList,
+  CommandsManagerInvalidCommand,
+  CommandsManagerDuplicatedCommand,
 
   FileIteration,
   StringLogVerbose,
@@ -141,6 +143,18 @@ export const logMessages = {
     return {
       level: "warn",
       message: `Invalid commands list: ${commands}`,
+    };
+  },
+  [CommandsManagerInvalidCommand]: (filePath: string) => {
+    return {
+      level: "warn",
+      message: `Invalid application command [path=${filePath}]`,
+    };
+  },
+  [CommandsManagerDuplicatedCommand]: (command: string, filePath: string) => {
+    return {
+      level: "warn",
+      message: `Duplicated application command [command=${command}] [path=${filePath}]`,
     };
   },
   [FileIteration]: (handler: string, file: string): LogEntry => {

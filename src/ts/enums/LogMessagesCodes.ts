@@ -23,6 +23,8 @@ export enum LogMessagesCodes {
   CommandsManagerCachedCommandsResult,
   CommandsManagerCachesCommandsList,
   CommandsManagerUncachedCommandsList,
+  CommandsManagerInvalidCommand,
+  CommandsManagerDuplicatedCommand,
 
   FileIteration,
   StringLogVerbose,
