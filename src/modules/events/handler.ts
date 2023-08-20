@@ -1,4 +1,4 @@
-import { ClientEvents } from "discord.js";
+import { Awaitable, ClientEvents } from "discord.js";
 
 export default class AresEventHandler<
   E extends keyof ClientEvents = keyof ClientEvents
@@ -21,13 +21,13 @@ export default class AresEventHandler<
   /**
    * The function to execute when the event is triggered.
    */
-  readonly execute: (...args: ClientEvents[E]) => Promise<void> | void;
+  readonly execute: (...args: ClientEvents[E]) => Awaitable<void>;
 
   constructor(
     name: E,
     isOnce: boolean,
     isProductionReady: boolean,
-    execute: (...args: ClientEvents[E]) => Promise<void> | void
+    execute: (...args: ClientEvents[E]) => Awaitable<void>
   ) {
     this.name = name;
     this.once = isOnce;
