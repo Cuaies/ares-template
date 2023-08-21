@@ -1,6 +1,8 @@
 import { DirContent } from "../ts/interfaces/dirContent.interface";
 import { readdir } from "fs/promises";
 import { basename, resolve, join } from "path";
+import { Dirent } from "fs";
+import { logger } from "../modules/logger/logger";
 
 /**
  * Recursively get the contents of a directory.
@@ -10,11 +12,23 @@ export const getDirContent = async (
   dirPath: string,
   obj: DirContent = {}
 ): Promise<DirContent> => {
-  const dirContent = await readdir(dirPath, { withFileTypes: true });
+  let dirExists: boolean = undefined!;
+  let dirContent: Dirent[] = [];
   const dirName = basename(dirPath);
+
+  try {
+    dirContent = [...(await readdir(dirPath, { withFileTypes: true }))];
+  } catch (e) {
+    if ((e as NodeJS.ErrnoException).code != "ENOENT") {
+      logger.log(e as NodeJS.ErrnoException);
+    } else {
+      dirExists = false;
+    }
+  }
 
   Object.assign(obj, {
     [basename(dirPath)]: {
+      validDir: dirExists ?? true,
       baseDirPath: resolve(dirPath),
       files: [],
       subDirs: {},
