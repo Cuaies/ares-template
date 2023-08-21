@@ -7,6 +7,7 @@ module.exports = {
   coveragePathIgnorePatterns: [
     "<rootDir>/dist/",
     "<rootDir>/node_modules/",
+    "<rootDir>/src/ts",
     "<rootDir>/src/modules/logger/messages",
   ],
 };
