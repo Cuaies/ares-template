@@ -29,7 +29,6 @@ export class AresClient extends Client {
       await Promise.all([eventsManagerInit, commandsManagerInit]);
     } catch (err) {
       logger.log(err as unknown as Error);
-      return this.destroy();
     }
 
     logger.log(
