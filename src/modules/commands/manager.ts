@@ -1,17 +1,21 @@
-import { join, basename } from "path";
+import { join, basename, dirname } from "path";
 import { AresBaseManager } from "../../lib/classes/baseManager";
 import { AresClient } from "../../lib/classes/client";
-import { LogMessagesCodes, LogScopes } from "../../ts/enums";
 import { AresApplicationCommandType, CommandCollection } from "../../ts/types";
 import { getDirContent } from "../../utils/helpers";
 import { isAresCommand } from "../../utils/typeguards";
 import { logger } from "../logger/logger";
 import CommandManagerResults from "./results";
-
-/**
- * Path to the command handlers' directory.
- */
-const COMMANDS_PATH = join(__dirname, "handlers");
+import { AresError } from "../../lib/classes/error";
+import {
+  LogErrorMessagesCodes,
+  LogMessagesCodes,
+  LogScopes,
+} from "../../ts/enums";
+import {
+  COMMANDS_MANAGER_REQUIRED_DIR,
+  COMMANDS_MANAGER_REQUIRED_PATH,
+} from "../../utils/constants";
 
 export class AresCommandsManager extends AresBaseManager {
   readonly results = new CommandManagerResults(this.scope);
@@ -22,55 +26,90 @@ export class AresCommandsManager extends AresBaseManager {
   }
 
   /**
-   * @param dirPath Path to the command handlers' directory.
+   * @param dirPath Path to the commands' directory.
    */
-  public async init(dirPath: string = COMMANDS_PATH): Promise<void> {
+  public async init(
+    dirPath: string = COMMANDS_MANAGER_REQUIRED_PATH
+  ): Promise<void> {
     await this.load(dirPath);
     this.results.displayResults();
   }
 
   /**
    * Caches all of the application commands found.
-   * @param dirPath Path to the command handlers' directory.
+   * @param dirPath Path to the commands' directory.
    */
   public async load(dirPath: string): Promise<void> {
-    const { subDirs } = (await getDirContent(dirPath))["handlers"];
+    const dirContent = (await getDirContent(dirPath))[
+      COMMANDS_MANAGER_REQUIRED_DIR
+    ];
 
-    for (const dir of Object.values(subDirs)) {
+    if (!dirContent.validDir) {
+      throw new AresError(
+        this.scope,
+        LogErrorMessagesCodes.ManagerRequiredDir,
+        COMMANDS_MANAGER_REQUIRED_DIR
+      );
+    }
+
+    for (const dir of Object.values(dirContent.subDirs)) {
       for (const file of dir.files) {
-        const command: AresApplicationCommandType = (await import(file.path))
-          .default;
-
-        if (!isAresCommand(command)) {
-          logger.log(
-            this.scope,
-            LogMessagesCodes.CommandsManagerInvalidCommand,
-            join(basename(dir.baseDirPath), basename(file.path))
-          );
-
-          this.results.addUncached(command);
-          continue;
-        }
-
-        if (this.cache.has(command.data.name)) {
-          logger.log(
-            this.scope,
-            LogMessagesCodes.CommandsManagerDuplicatedCommand,
-            command.data.name,
-            join(basename(dir.baseDirPath), basename(file.path))
-          );
-
-          this.results.addUncached(command);
-          continue;
-        }
-
-        // TODO: validate before caching
-
-        command.data.production
-          ? this.results.addDisabled(command)
-          : this.results.addCached(command);
-        this.cache.set(command.data.name, command);
+        await this.cacheCommand(file.path);
       }
     }
+  }
+
+  /**
+   * Caches a single application command.
+   */
+  private async cacheCommand(filePath: string): Promise<void> {
+    const command: AresApplicationCommandType = (await import(filePath))
+      .default;
+
+    const valid = this.validateCommand(command, filePath);
+    if (!valid) return;
+
+    command.data.production
+      ? this.results.addCached(command)
+      : this.results.addDisabled(command);
+    this.cache.set(command.data.name, command);
+  }
+
+  /**
+   * Validates an application command's integrity.
+   */
+  private validateCommand(
+    command: AresApplicationCommandType,
+    filePath: string
+  ): boolean {
+    const dir = basename(dirname(filePath));
+    const file = basename(filePath);
+
+    if (!isAresCommand(command)) {
+      logger.log(
+        this.scope,
+        LogMessagesCodes.CommandsManagerInvalidCommand,
+        join(dir, file)
+      );
+
+      this.results.addUncached(command);
+      return false;
+    }
+
+    if (this.cache.has(command.data.name)) {
+      logger.log(
+        this.scope,
+        LogMessagesCodes.CommandsManagerDuplicatedCommand,
+        command.data.name,
+        join(dir, file)
+      );
+
+      this.results.addUncached(command);
+      return false;
+    }
+
+    // TODO: Add further validation.
+
+    return true;
   }
 }
