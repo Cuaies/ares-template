@@ -4,4 +4,6 @@
 export enum LogErrorMessagesCodes {
   TEST = 400,
   TESTARGS,
+
+  ManagerRequiredDir,
 }
