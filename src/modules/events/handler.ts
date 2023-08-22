@@ -9,12 +9,12 @@ export default class AresEventHandler<
   readonly name: E;
 
   /**
-   * Wether the handler will execute once or not.
+   * Whether the handler will execute once or not.
    */
   readonly once: boolean;
 
   /**
-   * Wether to run in production or not.
+   * Whether to run in production or not.
    */
   readonly production: boolean;
 

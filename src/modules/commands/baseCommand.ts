@@ -13,7 +13,7 @@ export abstract class AresBaseCommandData extends SharedNameAndDescription {
   public category!: CommandCategories;
 
   /**
-   * Wether to run in production or not.
+   * Whether to run in production or not.
    */
   public production = false;
 
