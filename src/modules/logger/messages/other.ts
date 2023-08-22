@@ -22,8 +22,6 @@ const {
   EventsManagerUncachedEventsResult,
 
   CommandsManagerCachedCommandsResult,
-  CommandsManagerCachesCommandsList,
-  CommandsManagerUncachedCommandsList,
   CommandsManagerInvalidCommand,
   CommandsManagerDuplicatedCommand,
 
@@ -113,7 +111,7 @@ export const logMessages = {
     status: ResultsStatus["ok"]
   ): LogEntry => {
     return {
-      level: "info",
+      level: status === "ok" ? "info" : "warn",
       message: `Loaded ${loadedCount} handlers [${prototypesCount} current prototype(s)] [${status}]`,
     };
   },
@@ -129,20 +127,8 @@ export const logMessages = {
     status: ResultsStatus["ok"]
   ) => {
     return {
-      level: "info",
+      level: status === "ok" ? "info" : "warn",
       message: `Loaded ${loadedCount} commands [${prototypesCount} current prototype(s)] [${status}]`,
-    };
-  },
-  [CommandsManagerCachesCommandsList]: (commands: string[]) => {
-    return {
-      level: "verbose",
-      message: `Commands list: ${commands}`,
-    };
-  },
-  [CommandsManagerUncachedCommandsList]: (commands: string[]) => {
-    return {
-      level: "warn",
-      message: `Invalid commands list: ${commands}`,
     };
   },
   [CommandsManagerInvalidCommand]: (filePath: string) => {

@@ -21,8 +21,6 @@ export enum LogMessagesCodes {
   EventsManagerUncachedEventsResult,
 
   CommandsManagerCachedCommandsResult,
-  CommandsManagerCachesCommandsList,
-  CommandsManagerUncachedCommandsList,
   CommandsManagerInvalidCommand,
   CommandsManagerDuplicatedCommand,
 
