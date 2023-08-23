@@ -21,3 +21,16 @@ export const COMMANDS_MANAGER_REQUIRED_PATH = join(
   "commands",
   COMMANDS_MANAGER_REQUIRED_DIR
 );
+
+/**
+ * Represents the name of the directory that is required for the events manager to work.
+ */
+export const EVENTS_MANAGER_REQUIRED_DIR = "handlers";
+/**
+ * Represents the *absolute* path to the required directory.
+ */
+export const EVENTS_MANAGER_REQUIRED_PATH = join(
+  MODULES_PATH,
+  "events",
+  EVENTS_MANAGER_REQUIRED_DIR
+);

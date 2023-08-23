@@ -1,4 +1,3 @@
-import { Events } from "discord.js";
 import {
   LogErrorMessagesCodes,
   LogMessagesCodes,
@@ -6,6 +5,7 @@ import {
 } from "../ts/enums";
 import { AresApplicationCommandType } from "../ts/types";
 import { AresChatInputCommand } from "../modules/commands/chatInputCommand";
+import AresEventHandler from "../modules/events/handler";
 
 export const isLogScope = (str: unknown): str is LogScopes =>
   Object.values(LogScopes).some((enumValue) => enumValue === str);
@@ -18,8 +18,12 @@ export const isErrorLogMessageCode = (
 ): str is LogErrorMessagesCodes =>
   Object.values(LogErrorMessagesCodes).some((enumValue) => enumValue === str);
 
-export const isEvents = (str: unknown): str is keyof typeof Events => {
-  return Object.values(Events).some((enumValue) => enumValue === str);
+export const isAresEventHandler = (
+  event: unknown
+): event is AresEventHandler => {
+  if (!event || event.constructor === Array) return false;
+  if (event instanceof AresEventHandler) return true;
+  return false;
 };
 
 export const isAresCommand = (
