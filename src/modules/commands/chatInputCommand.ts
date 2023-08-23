@@ -2,6 +2,7 @@ import { Mixin } from "ts-mixer";
 import { AresBaseCommandData } from "./baseCommand";
 import {
   ApplicationCommandType,
+  Awaitable,
   CommandInteraction,
   SlashCommandBuilder,
 } from "discord.js";
@@ -32,7 +33,7 @@ export class AresChatInputCommand {
 
   constructor(
     data: AresChatInputCommandBuilder,
-    execute: (interaction: CommandInteraction) => Promise<void>
+    execute: (interaction: CommandInteraction) => Awaitable<void>
   ) {
     this.data = data;
     this.execute = execute;
