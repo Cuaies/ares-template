@@ -16,8 +16,8 @@ export default class AresEventsManagerResults extends AresBaseResults<
     logger.log(
       this.scope,
       LogMessagesCodes.EventsManagerCachedEventsResult,
-      this._cached.length + this._disabled.length,
-      this._disabled.length,
+      this.cachedLength,
+      this.disabledLength,
       ok
     );
 

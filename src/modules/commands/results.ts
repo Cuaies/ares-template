@@ -14,8 +14,8 @@ export default class AresCommandsManagerResults extends AresBaseResults<AresAppl
     logger.log(
       this.scope,
       LogMessagesCodes.CommandsManagerCachedCommandsResult,
-      this._cached.length + this._disabled.length,
-      this._disabled.length,
+      this.cachedLength,
+      this.disabledLength,
       ok
     );
   }
