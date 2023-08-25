@@ -2,7 +2,7 @@
 module.exports = {
   preset: "ts-jest",
   testEnvironment: "node",
-  roots: ["./src/tests"],
+  roots: ["./src/modules/logger/tests"],
   collectCoverage: true,
   coveragePathIgnorePatterns: [
     "<rootDir>/dist/",
