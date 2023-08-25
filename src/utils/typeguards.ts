@@ -26,7 +26,7 @@ export const isAresEventHandler = (
   return false;
 };
 
-export const isAresCommand = (
+export const isAresApplicationCommandType = (
   command: unknown
 ): command is AresApplicationCommandType => {
   if (!command || command.constructor === Array) return false;

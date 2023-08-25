@@ -3,7 +3,7 @@ import { AresBaseManager } from "../../lib/classes/baseManager";
 import { AresClient } from "../../lib/classes/client";
 import { AresApplicationCommandType, CommandCollection } from "../../ts/types";
 import { getDirContent } from "../../utils/helpers";
-import { isAresCommand } from "../../utils/typeguards";
+import { isAresApplicationCommandType } from "../../utils/typeguards";
 import { logger } from "../logger/logger";
 import CommandManagerResults from "./results";
 import { AresError } from "../../lib/classes/error";
@@ -85,7 +85,7 @@ export class AresCommandsManager extends AresBaseManager {
     const dir = basename(dirname(filePath));
     const file = basename(filePath);
 
-    if (!isAresCommand(command)) {
+    if (!isAresApplicationCommandType(command)) {
       logger.log(
         this.scope,
         LogMessagesCodes.CommandsManagerInvalidCommand,
