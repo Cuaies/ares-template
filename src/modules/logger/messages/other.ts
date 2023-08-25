@@ -111,7 +111,7 @@ export const logMessages = {
     status: ResultsStatus["ok"]
   ): LogEntry => {
     return {
-      level: status === "ok" ? "info" : "warn",
+      level: status === "ok" ? "info" : "error",
       message: `Loaded ${loadedCount} handlers [${prototypesCount} current prototype(s)] [${status}]`,
     };
   },
@@ -127,7 +127,7 @@ export const logMessages = {
     status: ResultsStatus["ok"]
   ) => {
     return {
-      level: status === "ok" ? "info" : "warn",
+      level: status === "ok" ? "info" : "error",
       message: `Loaded ${loadedCount} commands [${prototypesCount} current prototype(s)] [${status}]`,
     };
   },
