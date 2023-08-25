@@ -4,7 +4,7 @@ import { EventsCollection } from "../../ts/types";
 import { AresClient } from "../../lib/classes/client";
 import { logger } from "../logger/logger";
 import { getDirContent } from "../../utils/helpers";
-import AresEventManagerResults from "./results";
+import AresEventsManagerResults from "./results";
 import AresEventHandler from "./handler";
 import { isAresEventHandler } from "../../utils/typeguards";
 import { AresError } from "../../lib/classes/error";
@@ -19,7 +19,7 @@ import {
 } from "../../utils/constants";
 
 export class AresEventManager extends AresBaseManager {
-  readonly results = new AresEventManagerResults(this.scope);
+  readonly results = new AresEventsManagerResults(this.scope);
   declare readonly cache: EventsCollection;
 
   constructor(client: AresClient) {

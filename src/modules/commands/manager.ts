@@ -5,7 +5,7 @@ import { AresApplicationCommandType, CommandCollection } from "../../ts/types";
 import { getDirContent } from "../../utils/helpers";
 import { isAresApplicationCommandType } from "../../utils/typeguards";
 import { logger } from "../logger/logger";
-import CommandManagerResults from "./results";
+import AresCommandsManagerResults from "./results";
 import { AresError } from "../../lib/classes/error";
 import {
   LogErrorMessagesCodes,
@@ -18,7 +18,7 @@ import {
 } from "../../utils/constants";
 
 export class AresCommandsManager extends AresBaseManager {
-  readonly results = new CommandManagerResults(this.scope);
+  readonly results = new AresCommandsManagerResults(this.scope);
   declare readonly cache: CommandCollection;
 
   constructor(client: AresClient) {
