@@ -78,7 +78,7 @@ export const logMessages = {
   [ClientAttemptingLogin]: (shard: string): LogEntry => {
     return {
       level: "verbose",
-      message: `Attempting login [shard=${shard}]`,
+      message: `Attempting login ${shard ? `[shard=${shard}]` : ""}`,
     };
   },
   [ClientReady]: (shard: string, username: string): LogEntry => {
