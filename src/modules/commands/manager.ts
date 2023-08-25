@@ -67,7 +67,10 @@ export class AresCommandsManager extends AresBaseManager {
       .default;
 
     const valid = this.validateCommand(command, filePath);
-    if (!valid) return;
+    if (!valid) {
+      this.results.addUncached(command);
+      return;
+    }
 
     command.data.production
       ? this.results.addCached(command)
@@ -92,7 +95,6 @@ export class AresCommandsManager extends AresBaseManager {
         join(dir, file)
       );
 
-      this.results.addUncached(command);
       return false;
     }
 
@@ -104,7 +106,6 @@ export class AresCommandsManager extends AresBaseManager {
         join(dir, file)
       );
 
-      this.results.addUncached(command);
       return false;
     }
 
