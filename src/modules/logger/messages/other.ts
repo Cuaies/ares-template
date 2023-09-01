@@ -33,73 +33,73 @@ const {
 } = LogMessagesCodes;
 
 export const logMessages = {
-  [TEST]: (): LogEntry => {
+  [TEST]: () => {
     return {
       level: "silly",
       message: `Test message`,
     };
   },
-  [TESTARGS]: (strArg: string): LogEntry => {
+  [TESTARGS]: (strArg: string) => {
     return {
       level: "silly",
       message: `Test message with args [strArg=${strArg}]`,
     };
   },
-  [ShardingManagerShardCreate]: (id: number): LogEntry => {
+  [ShardingManagerShardCreate]: (id: number) => {
     return {
       level: "info",
       message: `Shard has launched [shard=${id}]`,
     };
   },
-  [ShardingManagerShardReady]: (id: number): LogEntry => {
+  [ShardingManagerShardReady]: (id: number) => {
     return {
       level: "info",
       message: `Shard is ready [shard=${id}]`,
     };
   },
-  [ShardingManagerShardDeath]: (id: number): LogEntry => {
+  [ShardingManagerShardDeath]: (id: number) => {
     return {
       level: "info",
       message: `Shard has died [shard=${id}]`,
     };
   },
-  [ShardingManagerShardReconnecting]: (id: number): LogEntry => {
+  [ShardingManagerShardReconnecting]: (id: number) => {
     return {
       level: "info",
       message: `Shard is reconnecting [shard=${id}]`,
     };
   },
-  [ShardingManagerSuccess]: (amount: number): LogEntry => {
+  [ShardingManagerSuccess]: (amount: number) => {
     return {
       level: "info",
       message: `Manager successfully spawned shards [amount=${amount}]`,
     };
   },
-  [ClientAttemptingLogin]: (shard: string): LogEntry => {
+  [ClientAttemptingLogin]: (shard: string) => {
     return {
       level: "verbose",
       message: `Attempting login ${shard ? `[shard=${shard}]` : ""}`,
     };
   },
-  [ClientReady]: (shard: string, username: string): LogEntry => {
+  [ClientReady]: (shard: string, username: string) => {
     return {
       level: "info",
       message: `Login successful [shard=${shard}] [username=${username}]`,
     };
   },
-  [EventsManagerDuplicatedHandler]: (handler: string): LogEntry => {
+  [EventsManagerDuplicatedHandler]: (handler: string) => {
     return {
       level: "warn",
       message: `Duplicated handler name [handler=${handler}]`,
     };
   },
-  [EventsManagerInvalidHandler]: (handler: string): LogEntry => {
+  [EventsManagerInvalidHandler]: (handler: string) => {
     return {
       level: "warn",
       message: `Handler name does not match allowed values [handler=${handler}]`,
     };
   },
-  [EventsManagerListeningForEvent]: (event: string): LogEntry => {
+  [EventsManagerListeningForEvent]: (event: string) => {
     return {
       level: "verbose",
       message: `Listening for event [event=${event}]`,
@@ -109,7 +109,7 @@ export const logMessages = {
     loadedCount: number,
     prototypesCount: number,
     status: ResultsStatus["ok"]
-  ): LogEntry => {
+  ) => {
     return {
       level: status === "ok" ? "info" : "error",
       message: `Loaded ${loadedCount} handlers [${prototypesCount} current prototype(s)] [${status}]`,
@@ -143,34 +143,34 @@ export const logMessages = {
       message: `Duplicated application command [command=${command}] [path=${filePath}]`,
     };
   },
-  [FileIteration]: (handler: string, file: string): LogEntry => {
+  [FileIteration]: (handler: string, file: string) => {
     return {
       level: "debug",
       message: `File iteration [handler=${handler}, file=${file}]`,
     };
   },
-  [StringLogVerbose]: (message: string): LogEntry => {
+  [StringLogVerbose]: (message: string) => {
     return {
       level: "verbose",
       message,
     };
   },
-  [StringLogDebug]: (message: string): LogEntry => {
+  [StringLogDebug]: (message: string) => {
     return {
       level: "debug",
       message,
     };
   },
-  [StringLogWarn]: (message: string): LogEntry => {
+  [StringLogWarn]: (message: string) => {
     return {
       level: "warn",
       message,
     };
   },
-  [StringLogError]: (message: string): LogEntry => {
+  [StringLogError]: (message: string) => {
     return {
       level: "error",
       message,
     };
   },
-};
+} satisfies Record<LogMessagesCodes, (...args: any[]) => LogEntry>;

@@ -40,7 +40,7 @@ export class AresClient extends Client {
     logger.log(
       LogScopes.Client,
       LogMessagesCodes.ClientAttemptingLogin,
-      this.shard?.ids.toString()
+      this.shard!.ids.toString()
     );
     await this.login(token);
   }

@@ -8,4 +8,4 @@ export const logErrorMessages = {
     `Test error message with args [strArg=${strArg}]`,
   [ManagerRequiredDir]: (dirName: string) =>
     `Manager requires directory in order to function [dirName=${dirName}]`,
-};
+} satisfies Record<LogErrorMessagesCodes, (...args: any[]) => string>;
