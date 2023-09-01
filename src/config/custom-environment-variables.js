@@ -15,5 +15,11 @@ module.exports = {
         __format: "boolean",
       },
     },
+    localizations: {
+      active: {
+        __name: "LOCALIZATIONS_MANAGER_ACTIVE",
+        __format: "boolean",
+      },
+    },
   },
 };

@@ -41,5 +41,15 @@ module.exports = {
        */
       active: null,
     },
+    /**
+     * Localizations manager configuration.
+     */
+    localizations: {
+      /**
+       * Whether to be used or not.
+       * @type boolean
+       */
+      active: null,
+    },
   },
 };

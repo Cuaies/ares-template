@@ -9,3 +9,5 @@ export type CommandCollection = Collection<
   Snowflake,
   AresApplicationCommandType
 >;
+// TODO: implement
+export type LocalizationsCollection = any;

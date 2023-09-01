@@ -3,6 +3,7 @@ import { logger } from "../../modules/logger/logger";
 import { LogMessagesCodes, LogScopes } from "../../ts/enums";
 import { AresEventsManager } from "../../modules/events/manager";
 import { AresCommandsManager } from "../../modules/commands/manager";
+import { AresLocalizationsManager } from "../../modules/localization/manager";
 import config from "config";
 
 /**
@@ -11,6 +12,7 @@ import config from "config";
 export class AresClient extends Client {
   public eventsManager?: AresEventsManager;
   public commandsManager?: AresCommandsManager;
+  public localizationsManager?: AresLocalizationsManager;
 
   constructor(opts: ClientOptions) {
     super(opts);
@@ -22,6 +24,10 @@ export class AresClient extends Client {
     if (config.modules.commands.active) {
       this.commandsManager = new AresCommandsManager(this);
     }
+
+    if (config.modules.localizations.active) {
+      this.localizationsManager = new AresLocalizationsManager(this);
+    }
   }
 
   /**
@@ -31,8 +37,13 @@ export class AresClient extends Client {
     try {
       const eventsManagerInit = this.eventsManager?.init();
       const commandsManagerInit = this.commandsManager?.init();
+      const localizationsManagerInit = this.localizationsManager?.init();
 
-      await Promise.all([eventsManagerInit, commandsManagerInit]);
+      await Promise.all([
+        eventsManagerInit,
+        commandsManagerInit,
+        localizationsManagerInit,
+      ]);
     } catch (err) {
       logger.log(err as unknown as Error);
     }
