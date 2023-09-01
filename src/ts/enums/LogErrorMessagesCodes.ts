@@ -6,4 +6,5 @@ export enum LogErrorMessagesCodes {
   TESTARGS,
 
   ManagerRequiredDir,
+  MethodNotImplemented,
 }
