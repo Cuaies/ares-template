@@ -18,7 +18,7 @@ import {
   EVENTS_MANAGER_REQUIRED_PATH,
 } from "../../utils/constants";
 
-export class AresEventManager extends AresBaseManager {
+export class AresEventsManager extends AresBaseManager {
   readonly results = new AresEventsManagerResults(this.scope);
   declare readonly cache: EventsCollection;
 

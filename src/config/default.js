@@ -17,4 +17,29 @@ module.exports = {
      */
     intents: [],
   },
+  /**
+   * Core modules configuration.
+   */
+  modules: {
+    /**
+     * Commands manager configuration.
+     */
+    commands: {
+      /**
+       * Whether to be used or not.
+       * @type boolean
+       */
+      active: null,
+    },
+    /**
+     * Events manager configuration.
+     */
+    events: {
+      /**
+       * Whether to be used or not.
+       * @type boolean
+       */
+      active: null,
+    },
+  },
 };
