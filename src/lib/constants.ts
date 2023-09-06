@@ -10,6 +10,12 @@ export const SRC_PATH = join(__dirname, "..");
 export const MODULES_PATH = join(__dirname, "..", "modules");
 
 /**
+ * Represents the *absolute* path to the `logs/` directory,
+ * the directory where the logs are stored.
+ */
+export const LOGS_DIR_PATH = join(__dirname, "..", "..", "logs");
+
+/**
  * Represents the name of the directory that is required for the commands manager to work.
  */
 export const COMMANDS_MANAGER_REQUIRED_DIR = "commands";

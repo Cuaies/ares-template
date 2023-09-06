@@ -6,10 +6,10 @@ import { LogMessagesCodes, LogScopes } from "../../ts/enums";
 import { logMessages } from "./messages";
 import { isLogScope } from "../../utils/typeguards";
 import { LogEntryFormatter } from "./formatter";
+import { LOGS_DIR_PATH } from "../../lib/constants";
 
 const { File, Console } = transports;
 const { combine, timestamp, ms, errors, json } = format;
-const LOGS_DIR_PATH = join(__dirname, "../../../logs");
 
 /**
  * Client logger class that wraps the winston logger.
@@ -52,12 +52,22 @@ export class AresLogger extends AresBaseModule {
     );
   }
 
-  public log(error: Error): Logger;
+  /**
+   * Records a message through the transports.
+   * @param scope Scope of the log message.
+   * @param code Code of the log message.
+   * @param args Arguments to be passed to the log message.
+   */
   public log<Code extends LogMessagesCodes>(
     scope: LogScopes,
     code: Code,
     ...args: Parameters<(typeof logMessages)[Code]>
   ): Logger;
+  /**
+   * Records an error through the transports.
+   * @param error Error to log.
+   */
+  public log(error: Error): Logger;
   public log<Code extends LogMessagesCodes>(
     scopeOrError: LogScopes | Error,
     code?: Code,
