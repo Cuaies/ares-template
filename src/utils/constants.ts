@@ -38,7 +38,7 @@ export const EVENTS_MANAGER_REQUIRED_PATH = join(
 /**
  * Represents the name of the directory that is required for the localizations manager to work.
  */
-export const LOCALIZATIONS_MANAGER_REQUIRED_DIR = "localizations";
+export const LOCALIZATIONS_MANAGER_REQUIRED_DIR = "locales";
 /**
  * Represents the *absolute* path to the required directory.
  */

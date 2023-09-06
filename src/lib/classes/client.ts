@@ -25,7 +25,7 @@ export class AresClient extends Client {
       this.commandsManager = new AresCommandsManager(this);
     }
 
-    if (config.modules.localizations.active) {
+    if (config.modules.localization.active) {
       this.localizationsManager = new AresLocalizationsManager(this);
     }
   }
@@ -46,6 +46,8 @@ export class AresClient extends Client {
       ]);
     } catch (err) {
       logger.log(err as unknown as Error);
+      this.destroy();
+      return;
     }
 
     logger.log(

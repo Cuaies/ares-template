@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-var-requires */
+const { Locale } = require("discord.js");
+
 module.exports = {
   /**
    * Client class configuration.
@@ -5,7 +9,7 @@ module.exports = {
   client: {
     /**
      * Token used to authenticate with.
-     * @type string
+     * @type {string}
      */
     token: null,
     /**
@@ -27,7 +31,7 @@ module.exports = {
     commands: {
       /**
        * Whether to be used or not.
-       * @type boolean
+       * @type {boolean}
        */
       active: null,
     },
@@ -37,19 +41,24 @@ module.exports = {
     events: {
       /**
        * Whether to be used or not.
-       * @type boolean
+       * @type {boolean}
        */
       active: null,
     },
     /**
      * Localizations manager configuration.
      */
-    localizations: {
+    localization: {
       /**
        * Whether to be used or not.
-       * @type boolean
+       * @type {boolean}
        */
       active: null,
+      /**
+       * Represents the locale that the client should default to.
+       * @type {Locale}
+       */
+      defaultLocale: null,
     },
   },
 };

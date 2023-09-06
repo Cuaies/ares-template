@@ -15,11 +15,12 @@ module.exports = {
         __format: "boolean",
       },
     },
-    localizations: {
+    localization: {
       active: {
         __name: "LOCALIZATIONS_MANAGER_ACTIVE",
         __format: "boolean",
       },
+      defaultLocale: "LOCALIZATIONS_MANAGER_DEFAULT_LOCALE",
     },
   },
 };

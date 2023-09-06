@@ -6,6 +6,7 @@ import {
 import { AresApplicationCommandType } from "../ts/types";
 import { AresChatInputCommand } from "../modules/commands/chatInputCommand";
 import AresEventHandler from "../modules/events/handler";
+import { Locale } from "discord.js";
 
 export const isLogScope = (str: unknown): str is LogScopes =>
   Object.values(LogScopes).some((enumValue) => enumValue === str);
@@ -33,3 +34,6 @@ export const isAresApplicationCommandType = (
   if (command instanceof AresChatInputCommand) return true;
   return false;
 };
+
+export const isLocale = (str: unknown): str is Locale =>
+  Object.values(Locale).some((enumValue) => enumValue === str);
