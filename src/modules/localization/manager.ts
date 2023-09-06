@@ -15,7 +15,7 @@ import { join } from "path";
 import {
   LOCALIZATIONS_MANAGER_REQUIRED_DIR,
   LOCALIZATIONS_MANAGER_REQUIRED_PATH,
-} from "../../utils/constants";
+} from "../../lib/constants";
 import { getDirContent } from "../../utils/helpers";
 import { isLocale } from "../../utils/typeguards";
 

@@ -16,7 +16,7 @@ import {
 import {
   EVENTS_MANAGER_REQUIRED_DIR,
   EVENTS_MANAGER_REQUIRED_PATH,
-} from "../../utils/constants";
+} from "../../lib/constants";
 
 export class AresEventsManager extends AresBaseManager {
   readonly results = new AresEventsManagerResults(this.scope);

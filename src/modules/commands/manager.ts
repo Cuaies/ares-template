@@ -15,7 +15,7 @@ import {
 import {
   COMMANDS_MANAGER_REQUIRED_DIR,
   COMMANDS_MANAGER_REQUIRED_PATH,
-} from "../../utils/constants";
+} from "../../lib/constants";
 
 export class AresCommandsManager extends AresBaseManager {
   readonly results = new AresCommandsManagerResults(this.scope);
