@@ -1,22 +1,21 @@
+import { Locale } from "discord.js";
 import { AresBaseResults } from "../../lib/classes/baseResults";
-import { AresError } from "../../lib/classes/error";
-import { LogErrorMessagesCodes, LogScopes } from "../../ts/enums";
+import { LogMessagesCodes, LogScopes } from "../../ts/enums";
 import { logger } from "../logger/logger";
 
-export default class AresLocalizationsManagerResults extends AresBaseResults<any> {
+export default class AresLocalizationsManagerResults extends AresBaseResults<Locale> {
   constructor(scope: LogScopes) {
     super(scope);
   }
 
-  displayResults() {
-    // TODO: implement
+  displayResults(): void {
+    const { ok } = this.success;
+
     logger.log(
-      new AresError(
-        this.scope,
-        LogErrorMessagesCodes.MethodNotImplemented,
-        "displayResults"
-      )
+      this.scope,
+      LogMessagesCodes.LocalizationManagerResultsDisplay,
+      this.cachedLength,
+      ok
     );
-    return;
   }
 }

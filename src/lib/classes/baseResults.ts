@@ -1,6 +1,9 @@
 import { LogScopes } from "../../ts/enums";
 import { ResultsStatus } from "../../ts/types";
 
+/**
+ * The base class for results.
+ */
 export abstract class AresBaseResults<T> {
   /**
    * The scope of the results.
@@ -56,6 +59,13 @@ export abstract class AresBaseResults<T> {
       return { success: true, ok: "ok" };
     }
     return { success: false, ok: "non-ok" };
+  }
+
+  /**
+   * Sets the cached items.
+   */
+  setCached(value: T[]) {
+    this._cached = value;
   }
 
   /**

@@ -25,6 +25,10 @@ const {
   CommandsManagerInvalidCommand,
   CommandsManagerDuplicatedCommand,
 
+  LocalizationManagerResultsDisplay,
+  InvalidLocaleDirName,
+  InvalidDir,
+
   FileIteration,
   StringLogVerbose,
   StringLogDebug,
@@ -141,6 +145,27 @@ export const logMessages = {
     return {
       level: "warn",
       message: `Duplicated application command [command=${command}] [path=${filePath}]`,
+    };
+  },
+  [LocalizationManagerResultsDisplay]: (
+    loadedCount: number,
+    status: ResultsStatus["ok"]
+  ) => {
+    return {
+      level: "info",
+      message: `Loaded ${loadedCount} locales [${status}]`,
+    };
+  },
+  [InvalidLocaleDirName]: (dirName: string) => {
+    return {
+      level: "warn",
+      message: `Invalid locale directory name [dirName=${dirName}]`,
+    };
+  },
+  [InvalidDir]: (dirName: string) => {
+    return {
+      level: "warn",
+      message: `Invalid directory [dirName=${dirName}]`,
     };
   },
   [FileIteration]: (handler: string, file: string) => {

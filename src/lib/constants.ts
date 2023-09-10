@@ -1,6 +1,10 @@
 import { join } from "path";
 
 /**
+ * Represents the *absolute* path to the root directory.
+ */
+export const ROOT_PATH = join(__dirname, "..", "..");
+/**
  * Represents the *absolute* path to the `src` directory.
  */
 export const SRC_PATH = join(__dirname, "..");
@@ -49,7 +53,7 @@ export const LOCALIZATIONS_MANAGER_REQUIRED_DIR = "locales";
  * Represents the *absolute* path to the required directory.
  */
 export const LOCALIZATIONS_MANAGER_REQUIRED_PATH = join(
-  MODULES_PATH,
-  "localization",
+  ROOT_PATH,
+  "shared",
   LOCALIZATIONS_MANAGER_REQUIRED_DIR
 );

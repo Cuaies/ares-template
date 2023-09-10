@@ -24,6 +24,10 @@ export enum LogMessagesCodes {
   CommandsManagerInvalidCommand,
   CommandsManagerDuplicatedCommand,
 
+  LocalizationManagerResultsDisplay,
+  InvalidLocaleDirName,
+  InvalidDir,
+
   FileIteration,
   StringLogVerbose,
   StringLogDebug,

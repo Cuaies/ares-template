@@ -5,6 +5,7 @@ import { AresError } from "../../lib/classes/error";
 import {
   LocalizationNamespaces,
   LogErrorMessagesCodes,
+  LogMessagesCodes,
   LogScopes,
 } from "../../ts/enums";
 import config from "config";
@@ -17,6 +18,8 @@ import {
 } from "../../lib/constants";
 import { getDirContent } from "../../utils/helpers";
 import { isLocale } from "../../utils/typeguards";
+import { Locale } from "discord.js";
+import { logger } from "../logger/logger";
 
 /**
  * The localizations manager, responsible for handling the localization processes.
@@ -64,6 +67,9 @@ export class AresLocalizationsManager extends AresBaseManager {
         ),
       },
     });
+
+    this.results.setCached(Object.keys(this.instance.store.data) as Locale[]);
+    this.results.displayResults();
   }
 
   /**
@@ -86,12 +92,12 @@ export class AresLocalizationsManager extends AresBaseManager {
 
     for (const [locale, dirData] of Object.entries(dirContent.subDirs)) {
       if (!isLocale(locale)) {
-        // TODO: warn about invalid locale.
+        logger.log(this.scope, LogMessagesCodes.InvalidLocaleDirName, locale);
         continue;
       }
 
       if (!dirData.validDir) {
-        // TODO: warn about invalid locale directory.
+        logger.log(this.scope, LogMessagesCodes.InvalidDir, locale);
         continue;
       }
 
