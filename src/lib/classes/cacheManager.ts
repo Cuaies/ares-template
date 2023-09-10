@@ -1,18 +1,19 @@
 import { Collection } from "discord.js";
-import { AresBaseModule } from "./baseModule";
 import { LogScopes } from "../../ts/enums";
+import { AresBaseManager } from "./baseManager";
+import { AresClient } from "./client";
 
 /**
- * The base class for all cache managers.
+ * The foundation of all cached managers.
  */
-export abstract class AresCacheManager extends AresBaseModule {
+export abstract class AresCachedManager<K, V> extends AresBaseManager {
   /**
    * The collection of cached items.
    */
-  readonly cache: InstanceType<typeof Collection>;
+  readonly cache: InstanceType<typeof Collection<K, V>>;
 
-  constructor(scope: LogScopes) {
-    super(scope);
+  constructor(client: AresClient, scope: LogScopes) {
+    super(client, scope);
 
     this.cache = new Collection();
   }

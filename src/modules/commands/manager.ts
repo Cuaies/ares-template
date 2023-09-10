@@ -1,7 +1,6 @@
 import { join, basename, dirname } from "path";
-import { AresBaseManager } from "../../lib/classes/baseManager";
 import { AresClient } from "../../lib/classes/client";
-import { AresApplicationCommandType, CommandCollection } from "../../ts/types";
+import { AresApplicationCommandType } from "../../ts/types";
 import { getDirContent } from "../../utils/helpers";
 import { isAresApplicationCommandType } from "../../utils/typeguards";
 import { logger } from "../logger/logger";
@@ -16,10 +15,17 @@ import {
   COMMANDS_MANAGER_REQUIRED_DIR,
   COMMANDS_MANAGER_REQUIRED_PATH,
 } from "../../lib/constants";
+import { AresCachedManager } from "../../lib/classes/cacheManager";
+import { Snowflake } from "discord.js";
 
-export class AresCommandsManager extends AresBaseManager {
+/**
+ * The commands manager, responsible for handling the application commands.
+ */
+export class AresCommandsManager extends AresCachedManager<
+  Snowflake,
+  AresApplicationCommandType
+> {
   readonly results = new AresCommandsManagerResults(this.scope);
-  declare readonly cache: CommandCollection;
 
   constructor(client: AresClient) {
     super(client, LogScopes.CommandsManager);

@@ -7,7 +7,6 @@ import {
   LogErrorMessagesCodes,
   LogScopes,
 } from "../../ts/enums";
-import { LocalizationsCollection } from "../../ts/types";
 import config from "config";
 import AresLocalizationsManagerResults from "./results";
 import I18NexFsBackend, { FsBackendOptions } from "i18next-fs-backend";
@@ -19,9 +18,11 @@ import {
 import { getDirContent } from "../../utils/helpers";
 import { isLocale } from "../../utils/typeguards";
 
+/**
+ * The localizations manager, responsible for handling the localization processes.
+ */
 export class AresLocalizationsManager extends AresBaseManager {
   readonly results = new AresLocalizationsManagerResults(this.scope);
-  declare readonly cache: LocalizationsCollection;
 
   /**
    * Includes the provider instance, which is responsible for handling the localization processes.

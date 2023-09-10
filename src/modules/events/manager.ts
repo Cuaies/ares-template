@@ -1,6 +1,4 @@
 import { basename } from "path";
-import { AresBaseManager } from "../../lib/classes/baseManager";
-import { EventsCollection } from "../../ts/types";
 import { AresClient } from "../../lib/classes/client";
 import { logger } from "../logger/logger";
 import { getDirContent } from "../../utils/helpers";
@@ -17,10 +15,17 @@ import {
   EVENTS_MANAGER_REQUIRED_DIR,
   EVENTS_MANAGER_REQUIRED_PATH,
 } from "../../lib/constants";
+import { AresCachedManager } from "../../lib/classes/cacheManager";
+import { Snowflake } from "discord.js";
 
-export class AresEventsManager extends AresBaseManager {
+/**
+ * The events manager, responsible for handling the client's events.
+ */
+export class AresEventsManager extends AresCachedManager<
+  Snowflake,
+  AresEventHandler
+> {
   readonly results = new AresEventsManagerResults(this.scope);
-  declare readonly cache: EventsCollection;
 
   constructor(client: AresClient) {
     super(client, LogScopes.EventsManager);
@@ -114,7 +119,7 @@ export class AresEventsManager extends AresBaseManager {
     if (!this.client) return;
 
     this.cache.forEach((handler) => {
-      if (this._production && !handler.production) return;
+      if (this.production && !handler.production) return;
 
       logger.log(
         this.scope,

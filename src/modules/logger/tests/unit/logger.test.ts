@@ -23,12 +23,12 @@ describe("AresLogger", () => {
     test("should properly initialize in production", () => {
       process.env.NODE_ENV = "production";
       const loggerProd = new AresLogger();
-      expect(loggerProd._production).toBe(true);
+      expect(loggerProd.production).toBe(true);
       expect(loggerProd.instance.level).toBe("info");
     });
 
     test("should properly initialize in development", () => {
-      expect(logger._production).toBe(false);
+      expect(logger.production).toBe(false);
       expect(logger.instance.level).toBe("silly");
     });
   });

@@ -1,12 +1,12 @@
 import { transports, createLogger, Logger, format } from "winston";
 import { join } from "path";
 import { logFileFormat, consoleFormat } from "./formats";
-import { AresBaseModule } from "../../lib/classes/baseModule";
 import { LogMessagesCodes, LogScopes } from "../../ts/enums";
 import { logMessages } from "./messages";
 import { isLogScope } from "../../utils/typeguards";
 import { LogEntryFormatter } from "./formatter";
 import { LOGS_DIR_PATH } from "../../lib/constants";
+import { AresBase } from "../../lib/classes/base";
 
 const { File, Console } = transports;
 const { combine, timestamp, ms, errors, json } = format;
@@ -14,17 +14,17 @@ const { combine, timestamp, ms, errors, json } = format;
 /**
  * Client logger class that wraps the winston logger.
  */
-export class AresLogger extends AresBaseModule {
+export class AresLogger extends AresBase {
   /**
    * Winston logger instance.
    */
   readonly instance: Logger;
 
   constructor() {
-    super(LogScopes.Logger);
+    super();
 
     this.instance = createLogger({
-      level: this._production ? "info" : "silly",
+      level: this.production ? "info" : "silly",
       silent: process.env.JEST_WORKER_ID !== undefined,
       format: combine(timestamp(), ms(), errors({ stack: true }), json()),
       transports: [
