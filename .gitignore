@@ -37,3 +37,6 @@ coverage/
 
 # Prettier
 .prettierignore
+
+# Shared files
+shared/locales/*
