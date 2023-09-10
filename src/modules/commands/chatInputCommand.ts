@@ -1,5 +1,6 @@
 import { Mixin } from "ts-mixer";
 import { AresBaseCommandData } from "./baseCommand";
+import { AresApplicationCommandInterface } from "../../ts/interfaces/command.interface";
 import {
   ApplicationCommandType,
   Awaitable,
@@ -20,15 +21,10 @@ export class AresChatInputCommandBuilder extends Mixin(
 /**
  * Represents a chat input application command.
  */
-export class AresChatInputCommand {
-  /**
-   * Command data.
-   */
+export class AresChatInputCommand
+  implements AresApplicationCommandInterface<CommandInteraction>
+{
   readonly data;
-
-  /**
-   * Command function meant to execute once an appropriate interaction is received.
-   */
   readonly execute;
 
   constructor(
