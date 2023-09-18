@@ -1,6 +1,6 @@
 import { LogScopes } from "../../ts/enums";
 import { AresBaseModule } from "./baseModule";
-import { AresBaseResults } from "./baseResults";
+import { AresResults } from "./results";
 import { AresClient } from "./client";
 
 /**
@@ -10,7 +10,7 @@ export abstract class AresBaseManager extends AresBaseModule {
   /**
    * Manager's results class.
    */
-  abstract readonly results: InstanceType<typeof AresBaseResults>;
+  abstract readonly results: InstanceType<typeof AresResults>;
 
   protected constructor(client: AresClient, scope: LogScopes) {
     super(client, scope);

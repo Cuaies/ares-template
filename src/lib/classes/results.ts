@@ -2,17 +2,19 @@ import { LogScopes } from "../../ts/enums";
 import { ResultsStatus } from "../../ts/types";
 
 /**
- * The base class for results.
+ * Represents the results handler, used to store and display the results of an operation.
  */
-export abstract class AresBaseResults<T> {
+export abstract class AresResults<T> {
   /**
-   * The scope of the results.
+   * Defines the scope, used to categorize and filter log entries.
    */
   readonly scope: LogScopes;
+
   /**
    * The success status of the operation.
    */
   protected _success: boolean = undefined!;
+
   /**
    * The items successfully cached, and not disabled.
    */

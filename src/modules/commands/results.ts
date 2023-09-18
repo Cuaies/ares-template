@@ -1,9 +1,9 @@
-import { AresBaseResults } from "../../lib/classes/baseResults";
+import { AresResults } from "../../lib/classes/results";
 import { LogMessagesCodes, LogScopes } from "../../ts/enums";
 import { AresApplicationCommandType } from "../../ts/types";
 import { logger } from "../logger/logger";
 
-export default class AresCommandsManagerResults extends AresBaseResults<AresApplicationCommandType> {
+export default class AresCommandsManagerResults extends AresResults<AresApplicationCommandType> {
   constructor(scope: LogScopes) {
     super(scope);
   }
