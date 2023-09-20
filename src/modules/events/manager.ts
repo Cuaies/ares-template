@@ -16,13 +16,13 @@ import {
   EVENTS_MANAGER_REQUIRED_PATH,
 } from "../../lib/constants";
 import { AresCachedManager } from "../../lib/classes/cacheManager";
-import { Snowflake } from "discord.js";
+import { ClientEvents } from "discord.js";
 
 /**
  * The events manager, responsible for handling the client's events.
  */
 export class AresEventsManager extends AresCachedManager<
-  Snowflake,
+  keyof ClientEvents,
   AresEventHandler
 > {
   readonly results = new AresEventsManagerResults(this.scope);
