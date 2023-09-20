@@ -102,7 +102,7 @@ export class AresEventsManager extends AresCachedManager<
 
     const valid = this.validateHandler(handler, filePath);
     if (!valid) {
-      this.results.addUncached(handler);
+      this.results.addUncached(basename(filePath));
       return;
     }
 

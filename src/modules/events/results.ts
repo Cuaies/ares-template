@@ -11,7 +11,7 @@ export default class AresEventsManagerResults extends AresResults<
   }
 
   displayResults() {
-    const { success, ok } = this.success;
+    const { ok } = this.success;
 
     logger.log(
       this.scope,
@@ -21,12 +21,6 @@ export default class AresEventsManagerResults extends AresResults<
       ok
     );
 
-    if (!success) {
-      logger.log(
-        this.scope,
-        LogMessagesCodes.EventsManagerUncachedEventsResult,
-        this._uncached.map((event) => event.name)
-      );
-    }
+    this.displayUncached();
   }
 }

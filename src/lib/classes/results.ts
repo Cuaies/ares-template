@@ -1,4 +1,5 @@
-import { LogScopes } from "../../ts/enums";
+import { logger } from "../../modules/logger/logger";
+import { LogMessagesCodes, LogScopes } from "../../ts/enums";
 import { ResultsStatus } from "../../ts/types";
 
 /**
@@ -78,7 +79,7 @@ export abstract class AresResults<T> {
   /**
    * The items unsuccessfully cached.
    */
-  protected _uncached: Set<T> = new Set<T>();
+  protected _uncached: Set<string> = new Set<string>();
 
   /**
    * Returns the number of uncached items.
@@ -89,14 +90,24 @@ export abstract class AresResults<T> {
 
   /**
    * Adds an entry to the uncached collection.
+   * @param entry The name of the entry's file that failed to load.
    */
-  public addUncached(entry: T): this {
+  public addUncached(entry: string): this {
     this._uncached.add(entry);
     return this;
   }
 
   constructor(scope: LogScopes) {
     this.scope = scope;
+  }
+
+  /**
+   * Displays the list of uncached items.
+   */
+  protected displayUncached(): void {
+    logger.log(this.scope, LogMessagesCodes.ManagerListUncached, [
+      ...this._uncached,
+    ]);
   }
 
   /**

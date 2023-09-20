@@ -15,11 +15,12 @@ const {
   ClientAttemptingLogin,
   ClientReady,
 
+  ManagerListUncached,
+
   EventsManagerDuplicatedHandler,
   EventsManagerInvalidHandler,
   EventsManagerListeningForEvent,
   EventsManagerCachedEventsResult,
-  EventsManagerUncachedEventsResult,
 
   CommandsManagerCachedCommandsResult,
   CommandsManagerInvalidCommand,
@@ -119,12 +120,6 @@ export const logMessages = {
       message: `Loaded ${loadedCount} handlers [${prototypesCount} current prototype(s)] [${status}]`,
     };
   },
-  [EventsManagerUncachedEventsResult]: (uncachedCount: string[]) => {
-    return {
-      level: "warn",
-      message: `Invalid handlers list: ${uncachedCount}`,
-    };
-  },
   [CommandsManagerCachedCommandsResult]: (
     loadedCount: number,
     prototypesCount: number,
@@ -166,6 +161,12 @@ export const logMessages = {
     return {
       level: "warn",
       message: `Invalid directory [dirName=${dirName}]`,
+    };
+  },
+  [ManagerListUncached]: (entries: string[]) => {
+    return {
+      level: "warn",
+      message: `Invalid entries list: ${entries.join(", ")}`,
     };
   },
   [FileIteration]: (handler: string, file: string) => {

@@ -74,7 +74,7 @@ export class AresCommandsManager extends AresCachedManager<
 
     const valid = this.validateCommand(command, filePath);
     if (!valid) {
-      this.results.addUncached(command);
+      this.results.addUncached(basename(filePath));
       return;
     }
 
