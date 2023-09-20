@@ -116,8 +116,6 @@ export class AresEventsManager extends AresCachedManager<
    * Registers cached handlers.
    */
   public async registerEventHandlers(): Promise<void> {
-    if (!this.client) return;
-
     this.cache.forEach((handler) => {
       if (this.production && !handler.production) return;
 
