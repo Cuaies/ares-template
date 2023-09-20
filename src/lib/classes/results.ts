@@ -2,7 +2,7 @@ import { LogScopes } from "../../ts/enums";
 import { ResultsStatus } from "../../ts/types";
 
 /**
- * Represents the results handler, used to store and display the results of an operation.
+ * Represents the handler used to store and display the state of the manager's loading operation.
  */
 export abstract class AresResults<T> {
   /**
@@ -11,99 +11,96 @@ export abstract class AresResults<T> {
   readonly scope: LogScopes;
 
   /**
-   * The success status of the operation.
+   * The status of the operation.
    */
-  protected _success: boolean = undefined!;
+  private _success: boolean = undefined!;
 
   /**
-   * The items successfully cached, and not disabled.
+   * Returns the status of the loading operation.
    */
-  protected _cached: T[] = [];
+  get success(): ResultsStatus {
+    if (!this.uncachedLength && (this._success ?? true)) {
+      this._success = true;
+      return { success: true, ok: "ok" };
+    }
+    this._success = false;
+    return { success: false, ok: "non-ok" };
+  }
+
+  /**
+   * Sets the success state.
+   */
+  public setSuccess(success: boolean): this {
+    this._success = success;
+    return this;
+  }
+
+  /**
+   * The items successfully cached, and ready to be used in production.
+   */
+  protected _cached: Set<T> = new Set<T>();
+
+  /**
+   * Returns the number of cached items, both production-ready and in development or disabled.
+   */
+  get cachedLength(): number {
+    return this._cached.size + this._disabled.size;
+  }
+
+  /**
+   * Adds an entry to the cached collection.
+   */
+  public addCached(entry: T): this {
+    this._cached.add(entry);
+    return this;
+  }
+
   /**
    * The items successfully cached, but disabled.
    */
-  protected _disabled: T[] = [];
+  protected _disabled: Set<T> = new Set<T>();
+
+  /**
+   * Returns the number of cached items, currently in development or disabled.
+   */
+  get disabledLength(): number {
+    return this._disabled.size;
+  }
+
+  /**
+   * Adds an entry to the disabled collection.
+   */
+  public addDisabled(entry: T): this {
+    this._disabled.add(entry);
+    return this;
+  }
+
   /**
    * The items unsuccessfully cached.
    */
-  protected _uncached: T[] = [];
+  protected _uncached: Set<T> = new Set<T>();
+
+  /**
+   * Returns the number of uncached items.
+   */
+  get uncachedLength(): number {
+    return this._uncached.size;
+  }
+
+  /**
+   * Adds an entry to the uncached collection.
+   */
+  public addUncached(entry: T): this {
+    this._uncached.add(entry);
+    return this;
+  }
 
   constructor(scope: LogScopes) {
     this.scope = scope;
   }
 
   /**
-   * Returns the number of cached items, both `cached` and `disabled`.
-   */
-  get cachedLength(): number {
-    return this._cached.length + this._disabled.length;
-  }
-
-  /**
-   * Returns the number of cached items.
-   */
-  get disabledLength(): number {
-    return this._disabled.length;
-  }
-
-  /**
-   * Returns the number of cached items.
-   */
-  get uncachedLength(): number {
-    return this._uncached.length;
-  }
-
-  /**
-   * Returns the success status of the operation.
-   */
-  get success(): ResultsStatus {
-    if (!this.uncachedLength && (this._success ?? true)) {
-      return { success: true, ok: "ok" };
-    }
-    return { success: false, ok: "non-ok" };
-  }
-
-  /**
-   * Sets the cached items.
-   */
-  setCached(value: T[]) {
-    this._cached = value;
-  }
-
-  /**
-   * Sets the success state.
-   */
-  setSuccess(success: boolean): this {
-    this._success = success;
-    return this;
-  }
-
-  /**
-   * Adds an entry to the cached array.
-   */
-  addCached(entry: T): this {
-    this._cached.push(entry);
-    return this;
-  }
-
-  /**
-   * Adds an entry to the disabled array.
-   */
-  addDisabled(entry: T): this {
-    this._disabled.push(entry);
-    return this;
-  }
-
-  /**
-   * Adds an entry to the uncached array.
-   */
-  addUncached(entry: T): this {
-    this._uncached.push(entry);
-    return this;
-  }
-
-  /**
-   * Displays the results of the operation.
+   * Displays the results of the loading operation.
    */
   abstract displayResults(): void;
 }
