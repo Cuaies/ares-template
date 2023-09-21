@@ -14,5 +14,5 @@ module.exports = {
     "<rootDir>/src/ts",
     "<rootDir>/src/modules/logger/messages",
   ],
-  setupFiles: ["<rootDir>/src/init/index.ts"],
+  setupFiles: ["<rootDir>/src/init/config.ts"],
 };
