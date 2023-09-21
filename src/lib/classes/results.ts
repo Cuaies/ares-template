@@ -57,6 +57,14 @@ export abstract class AresResults<T> {
   }
 
   /**
+   * Sets the cached collection.
+   */
+  public setCached(entry: T[]): this {
+    this._cached = new Set<T>(entry);
+    return this;
+  }
+
+  /**
    * The items successfully cached, but disabled.
    */
   protected _disabled: Set<T> = new Set<T>();
