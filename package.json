@@ -5,7 +5,7 @@
   "scripts": {
     "test": "jest",
     "prepare": "husky install",
-    "build": "tsc -b",
+    "build": "tsc -b && tscp",
     "lint": "eslint src --ext .js --ext .ts",
     "lint:fix": "npm run lint -- --fix",
     "prettier": "npx prettier . --ignore-unknown --check",
