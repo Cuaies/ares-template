@@ -54,7 +54,7 @@ export class LogEntryFormatter {
     const isScope = isLogScope(scope);
     let messageScope: string;
 
-    if (logEntry.level === "error" && code) {
+    if (logEntry.level === "error" && isErrorLogMessageCode(code)) {
       messageScope = `[${
         isScope
           ? LogScopes[scope] + ":" + LogErrorMessagesCodes[code]

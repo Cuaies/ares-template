@@ -3,4 +3,10 @@
  */
 export enum LogScopes {
   TEST,
+  Logger,
+  ShardingManager,
+  Client,
+  EventsManager,
+  CommandsManager,
+  LocalizationsManager,
 }

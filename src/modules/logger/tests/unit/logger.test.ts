@@ -1,18 +1,64 @@
-import { AresError } from "../../lib/classes/error";
-import { LogEntryFormatter } from "../../modules/logger/formatter";
-import { AresLogger } from "../../modules/logger/logger";
-import { logErrorMessages, logMessages } from "../../modules/logger/messages";
+import { AresError } from "../../../../lib/classes/error";
+import { LogEntryFormatter } from "../../formatter";
+import { AresLogger } from "../../logger";
+import { logErrorMessages, logMessages } from "../../messages";
 import {
   LogErrorMessagesCodes,
   LogMessagesCodes,
   LogScopes,
-} from "../../ts/enums";
+} from "../../../../ts/enums";
 
 describe("AresLogger", () => {
   let logger: AresLogger;
 
   beforeAll(() => {
     logger = new AresLogger();
+  });
+
+  describe("initialization", () => {
+    test("should properly initialize", () => {
+      expect(logger).toBeInstanceOf(AresLogger);
+    });
+
+    test("should properly initialize in production", () => {
+      process.env.NODE_ENV = "production";
+      const loggerProd = new AresLogger();
+      expect(loggerProd.production).toBe(true);
+      expect(loggerProd.instance.level).toBe("info");
+    });
+
+    test("should properly initialize in development", () => {
+      expect(logger.production).toBe(false);
+      expect(logger.instance.level).toBe("silly");
+    });
+  });
+
+  describe("log()", () => {
+    test("should log a message based on the provided scope and code", () => {
+      const spy = jest.spyOn(logger, "log");
+      logger.log(LogScopes.TEST, LogMessagesCodes.TEST);
+
+      expect(spy).toHaveBeenCalledWith(LogScopes.TEST, LogMessagesCodes.TEST);
+      expect(spy).toReturnWith(logger.instance);
+    });
+
+    test("should log generic errors", () => {
+      const spy = jest.spyOn(logger, "log");
+      const err = new Error("test");
+      logger.log(err);
+
+      expect(spy).toHaveBeenCalledWith(err);
+      expect(spy).toReturnWith(logger.instance);
+    });
+
+    test("should log custom errors", () => {
+      const spy = jest.spyOn(logger, "log");
+      const err = new AresError(null, LogErrorMessagesCodes.TEST);
+      logger.log(err);
+
+      expect(spy).toHaveBeenCalledWith(err);
+      expect(spy).toReturnWith(logger.instance);
+    });
   });
 
   describe("LogEntryFormatter", () => {
@@ -72,49 +118,6 @@ describe("AresLogger", () => {
 
         expect(entry).toEqual(desiredEntry);
       });
-    });
-  });
-
-  describe("initialization", () => {
-    test("should properly initialize", () => {
-      expect(logger).toBeInstanceOf(AresLogger);
-    });
-
-    test("should properly initialize in production", () => {
-      process.env.NODE_ENV = "production";
-      const loggerProd = new AresLogger();
-      expect(loggerProd._production).toBe(true);
-      expect(loggerProd.instance.level).toBe("info");
-    });
-
-    test("should properly initialize in development", () => {
-      expect(logger._production).toBe(false);
-      expect(logger.instance.level).toBe("silly");
-    });
-  });
-
-  describe("log()", () => {
-    test("should log a message based on the provided scope and code", () => {
-      const spy = jest.spyOn(logger, "log");
-      logger.log(LogScopes.TEST, LogMessagesCodes.TEST);
-
-      expect(spy).toHaveBeenCalledWith(LogScopes.TEST, LogMessagesCodes.TEST);
-    });
-
-    test("should log generic errors", () => {
-      const spy = jest.spyOn(logger, "log");
-      const err = new Error("test");
-      logger.log(err);
-
-      expect(spy).toHaveBeenCalledWith(err);
-    });
-
-    test("should log custom errors", () => {
-      const spy = jest.spyOn(logger, "log");
-      const err = new AresError(null, LogErrorMessagesCodes.TEST);
-      logger.log(err);
-
-      expect(spy).toHaveBeenCalledWith(err);
     });
   });
 });

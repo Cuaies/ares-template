@@ -1,13 +1,24 @@
-/**
- * Base class for all modules.
- */
-export class BaseModule {
-  /**
-   * Boolean indicating whether the app is running in production mode or not.
-   */
-  readonly _production: boolean;
+import { LogScopes } from "../../ts/enums";
+import { AresBase } from "./base";
+import { AresClient } from "./client";
 
-  constructor() {
-    this._production = process.env.NODE_ENV === "production";
+/**
+ * The foundation of all modules.
+ */
+export class AresBaseModule extends AresBase {
+  /**
+   * Defines the scope, used to categorize and filter log entries.
+   */
+  readonly scope: LogScopes;
+  /**
+   * The client that instantiated this class.
+   */
+  readonly client: AresClient;
+
+  protected constructor(client: AresClient, scope: LogScopes) {
+    super();
+
+    this.client = client;
+    this.scope = scope;
   }
 }
