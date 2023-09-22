@@ -85,9 +85,9 @@ export abstract class AresResults<T> {
   }
 
   /**
-   * The items unsuccessfully cached.
+   * The items unsuccessfully cached, be it either a string identifier or an object.
    */
-  protected _uncached: Set<string> = new Set<string>();
+  protected _uncached: Set<T | string> = new Set<T | string>();
 
   /**
    * Returns the number of uncached items.
@@ -98,9 +98,9 @@ export abstract class AresResults<T> {
 
   /**
    * Adds an entry to the uncached collection.
-   * @param entry The name of the entry's file that failed to load.
+   * @param entry The string identifier or object to be added.
    */
-  public addUncached(entry: string): this {
+  public addUncached(entry: T | string): this {
     this._uncached.add(entry);
     return this;
   }
@@ -110,12 +110,19 @@ export abstract class AresResults<T> {
   }
 
   /**
-   * Displays the list of uncached items.
+   * Displays the list of cached items.
+   * @param entries The identifiers to be displayed in the list.
    */
-  protected displayUncached(): void {
-    logger.log(this.scope, LogMessagesCodes.ManagerListUncached, [
-      ...this._uncached,
-    ]);
+  protected displayCached(entries: string[]): void {
+    logger.log(this.scope, LogMessagesCodes.ManagerListCached, entries);
+  }
+
+  /**
+   * Displays the list of uncached items.
+   * @param entries The identifiers to be displayed in the list.
+   */
+  protected displayUncached(entries: string[]): void {
+    logger.log(this.scope, LogMessagesCodes.ManagerListUncached, entries);
   }
 
   /**
