@@ -1,3 +1,3 @@
 import AresEventHandler from "../../../../handler";
 
-export default new AresEventHandler("debug", true, true, () => {});
+export default new AresEventHandler("ready", true, true, () => {});
