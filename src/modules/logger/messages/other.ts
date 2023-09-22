@@ -1,6 +1,7 @@
 import { LogEntry } from "winston";
 import { LogMessagesCodes } from "../../../ts/enums";
 import { ResultsStatus } from "../../../ts/types";
+import { Locale } from "discord.js";
 
 const {
   TEST,
@@ -27,6 +28,8 @@ const {
   CommandsManagerDuplicatedCommand,
 
   LocalizationManagerResultsDisplay,
+  LocalizationManagerCachedDisplay,
+
   InvalidLocaleDirName,
   InvalidDir,
 
@@ -149,6 +152,12 @@ export const logMessages = {
     return {
       level: "info",
       message: `Loaded ${loadedCount} locales [${status}]`,
+    };
+  },
+  [LocalizationManagerCachedDisplay]: (entries: Locale[]) => {
+    return {
+      level: "info",
+      message: `List of cached locales: ${entries.join(", ")}`,
     };
   },
   [InvalidLocaleDirName]: (dirName: string) => {

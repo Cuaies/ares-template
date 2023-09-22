@@ -9,7 +9,7 @@ export default class AresLocalizationsManagerResults extends AresResults<Locale>
   }
 
   displayResults(): void {
-    const { ok } = this.success;
+    const { success, ok } = this.success;
 
     logger.log(
       this.scope,
@@ -17,5 +17,13 @@ export default class AresLocalizationsManagerResults extends AresResults<Locale>
       this.cachedLength,
       ok
     );
+
+    if (success) {
+      logger.log(
+        this.scope,
+        LogMessagesCodes.LocalizationManagerCachedDisplay,
+        Array.from(this._cached)
+      );
+    }
   }
 }

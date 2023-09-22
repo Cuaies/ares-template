@@ -53,7 +53,7 @@ export const LOCALIZATIONS_MANAGER_REQUIRED_DIR = "locales";
  * Represents the *absolute* path to the required directory.
  */
 export const LOCALIZATIONS_MANAGER_REQUIRED_PATH = join(
-  ROOT_PATH,
-  "shared",
+  MODULES_PATH,
+  "localization",
   LOCALIZATIONS_MANAGER_REQUIRED_DIR
 );

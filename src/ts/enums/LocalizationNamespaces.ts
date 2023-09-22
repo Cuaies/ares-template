@@ -3,5 +3,4 @@
  */
 export enum LocalizationNamespaces {
   Misc = "misc",
-  Locales = "locales",
 }
