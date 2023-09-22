@@ -27,7 +27,6 @@ export enum LogMessagesCodes {
   CommandsManagerDuplicatedCommand,
 
   LocalizationManagerResultsDisplay,
-  LocalizationManagerCachedDisplay,
 
   InvalidLocaleDirName,
   InvalidDir,

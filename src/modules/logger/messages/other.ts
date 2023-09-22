@@ -29,7 +29,6 @@ const {
   CommandsManagerDuplicatedCommand,
 
   LocalizationManagerResultsDisplay,
-  LocalizationManagerCachedDisplay,
 
   InvalidLocaleDirName,
   InvalidDir,
@@ -153,12 +152,6 @@ export const logMessages = {
     return {
       level: "info",
       message: `Loaded ${loadedCount} locales [${status}]`,
-    };
-  },
-  [LocalizationManagerCachedDisplay]: (entries: Locale[]) => {
-    return {
-      level: "info",
-      message: `List of cached locales: ${entries.join(", ")}`,
     };
   },
   [InvalidLocaleDirName]: (dirName: string) => {

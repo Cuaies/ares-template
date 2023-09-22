@@ -1,25 +1,25 @@
 import i18next from "i18next";
+import config from "config";
+import AresLocalizationsManagerResults from "./results";
+import I18NexFsBackend, { FsBackendOptions } from "i18next-fs-backend";
 import { AresBaseManager } from "../../lib/classes/baseManager";
 import { AresClient } from "../../lib/classes/client";
 import { AresError } from "../../lib/classes/error";
+import { join } from "path";
+import { getDirContent } from "../../utils/helpers";
+import { isLocale } from "../../utils/typeguards";
+import { Locale } from "discord.js";
+import { logger } from "../logger/logger";
 import {
   LocalizationNamespaces,
   LogErrorMessagesCodes,
   LogMessagesCodes,
   LogScopes,
 } from "../../ts/enums";
-import config from "config";
-import AresLocalizationsManagerResults from "./results";
-import I18NexFsBackend, { FsBackendOptions } from "i18next-fs-backend";
-import { join } from "path";
 import {
   LOCALIZATIONS_MANAGER_REQUIRED_DIR,
   LOCALIZATIONS_MANAGER_REQUIRED_PATH,
 } from "../../lib/constants";
-import { getDirContent } from "../../utils/helpers";
-import { isLocale } from "../../utils/typeguards";
-import { Locale } from "discord.js";
-import { logger } from "../logger/logger";
 
 /**
  * The localizations manager, responsible for handling the localization processes.

@@ -21,7 +21,13 @@ export default class AresLocalizationsManagerResults extends AresResults<Locale>
     if (success) {
       logger.log(
         this.scope,
-        LogMessagesCodes.LocalizationManagerCachedDisplay,
+        LogMessagesCodes.ManagerListCached,
+        Array.from(this._cached)
+      );
+    } else {
+      logger.log(
+        this.scope,
+        LogMessagesCodes.ManagerListUncached,
         Array.from(this._cached)
       );
     }
