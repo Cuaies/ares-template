@@ -16,10 +16,11 @@ const {
   ClientAttemptingLogin,
   ClientReady,
 
+  ManagerListCached,
   ManagerListUncached,
 
-  EventsManagerDuplicatedHandler,
   EventsManagerInvalidHandler,
+  EventsManagerDuplicatedHandler,
   EventsManagerListeningForEvent,
   EventsManagerCachedEventsResult,
 
@@ -170,6 +171,12 @@ export const logMessages = {
     return {
       level: "warn",
       message: `Invalid directory [dirName=${dirName}]`,
+    };
+  },
+  [ManagerListCached]: (entries: string[]) => {
+    return {
+      level: "info",
+      message: `Cached entries list: ${entries.join(", ")}`,
     };
   },
   [ManagerListUncached]: (entries: string[]) => {
