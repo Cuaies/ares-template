@@ -32,11 +32,6 @@ yarn-error.log*
 # Testing
 coverage/
 
-# ESLint
-.eslintignore
-
-# Prettier
-.prettierignore
 
 # Shared files
 shared/locales/*
