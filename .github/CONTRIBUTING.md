@@ -31,7 +31,7 @@ Before you ask a question, it is best to search for existing issues that might h
 
 If you then still feel the need to ask a question and need clarification, we recommend the following:
 
-- Go to the [Issues](https://github.com/Cuaies/ares/issues/new/choose) tab.
+- Go to the [Issues](https://github.com/Cuaies/ares-template/issues/new/choose) tab.
 - In case the subject is regarding a general matter, please refrain from creating a new issue, and rather discuss on our support server.
 - Otherwise, create a new issue, filling it with as many details as possible.
 
@@ -53,7 +53,7 @@ A good bug report shouldn't leave others needing to chase you up for more inform
 
 - Make sure that you are using the latest version.
 - Determine if your bug is really a bug and not an error on your side e.g. using incompatible environment components/versions (If you are looking for support, you might want to check [this section](#i-have-a-question)).
-- To see if other users have experienced (and potentially already solved) the same issue you are having, check the [bug tracker](https://github.com/Cuaies/ares/issues).
+- To see if other users have experienced (and potentially already solved) the same issue you are having, check the [bug tracker](https://github.com/Cuaies/ares-template/issues).
 - Collect information about the bug:
   - Stack trace (Traceback)
   - OS, Platform and Version (Windows, Linux, macOS, x86, ARM)
@@ -69,7 +69,7 @@ A good bug report shouldn't leave others needing to chase you up for more inform
 
 We use GitHub issues to track bugs and errors. If you run into an issue with the project:
 
-- Open an [Issue](https://github.com/Cuaies/ares/issues/new/choose). (Since we can't be sure at this point whether it is a bug or not, we ask you not to talk about a bug yet and not to label the issue.)
+- Open an [Issue](https://github.com/Cuaies/ares-template/issues/new/choose). (Since we can't be sure at this point whether it is a bug or not, we ask you not to talk about a bug yet and not to label the issue.)
 - Explain the behaviour you would expect and the actual behaviour.
 - Please provide as much context as possible and describe the _reproduction steps_ that someone else can follow to recreate the issue on their own. This usually includes your code. For good bug reports you should isolate the problem and create a reduced test case.
 - Provide the information you collected in the previous section.
@@ -89,7 +89,7 @@ This section guides you through submitting an enhancement suggestion for ares, i
 #### Before Submitting an Enhancement
 
 - Make sure that you are using the latest version.
-- Perform a search on the [issue tracker](https://github.com/Cuaies/ares/issues) or the [Discord server](https://discord.gg/GF67PwqsMb) to see if the enhancement has already been suggested. If it has, add a comment to the existing issue instead of opening a new one.
+- Perform a search on the [issue tracker](https://github.com/Cuaies/ares-template/issues) or the [Discord server](https://discord.gg/GF67PwqsMb) to see if the enhancement has already been suggested. If it has, add a comment to the existing issue instead of opening a new one.
 - Find out whether your idea fits with the scope and aims of the project. It's up to you to make a strong case to convince the project's developers of the merits of this feature. Keep in mind that we want features that will be useful to the majority of our users and not just a small subset. If you're just targeting a minority of users, consider writing an add-on/plugin library.
 
 ### Your First Code Contribution

@@ -1,4 +1,4 @@
-- [ ] I have been following this project's [Contributing](https://github.com/Cuaies/ares/blob/master/.github/CONTRIBUTING.md) guidelines.
+- [ ] I have been following this project's [Contributing](https://github.com/Cuaies/ares-template/blob/master/.github/CONTRIBUTING.md) guidelines.
 
 **Please describe the changes this PR makes:**
 
