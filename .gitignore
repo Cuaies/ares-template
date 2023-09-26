@@ -32,5 +32,11 @@ yarn-error.log*
 # Testing
 coverage/
 
-# ESLint
-.eslintignore
+
+# Shared files
+shared/locales/*
+
+# Project-specific files
+src/modules/commands/commands/*
+src/modules/events/handlers/*
+src/modules/localization/locales/*

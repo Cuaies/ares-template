@@ -1,15 +1,45 @@
 {
   "name": "ares",
-  "version": "0.0.0",
+  "version": "0.0.0-development",
   "private": true,
   "scripts": {
+    "test": "jest",
     "prepare": "husky install",
-    "build": "tsc -b"
+    "build": "tsc -b && tscp",
+    "lint": "eslint src --ext .js --ext .ts",
+    "lint:fix": "npm run lint -- --fix",
+    "prettier": "npx prettier . --ignore-unknown --check",
+    "prettier:fix": "npm run prettier -- --write",
+    "development": "npm run build && node ./dist/index.js",
+    "release": "release-it"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.6.5",
     "@commitlint/config-conventional": "^17.6.5",
+    "@release-it/conventional-changelog": "^7.0.2",
+    "@types/config": "^3.3.0",
+    "@types/jest": "^29.5.2",
+    "@typescript-eslint/eslint-plugin": "^5.59.11",
+    "@typescript-eslint/parser": "^5.59.11",
+    "eslint": "^8.43.0",
+    "eslint-config-prettier": "^8.8.0",
     "husky": "^8.0.0",
-    "typescript": "^5.1.3"
+    "jest": "^29.5.0",
+    "lint-staged": "^13.2.2",
+    "prettier": "2.8.8",
+    "release-it": "^16.2.0",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.1.3",
+    "typescript-cp": "^0.1.9"
+  },
+  "dependencies": {
+    "config": "^3.3.9",
+    "discord.js": "^14.11.0",
+    "dotenv": "^16.3.1",
+    "i18next": "^23.4.9",
+    "i18next-fs-backend": "^2.1.5",
+    "ts-mixer": "^6.0.3",
+    "winston": "^3.10.0",
+    "winston-console-format": "^1.0.8"
   }
 }
