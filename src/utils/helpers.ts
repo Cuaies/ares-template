@@ -49,3 +49,10 @@ export const getDirContent = async (
 
   return obj;
 };
+
+/**
+ * Checks if the environment is production.
+ * @returns `true` if the environment is production, `false` otherwise.
+ */
+export const isProduction = (): boolean =>
+  process.env.NODE_ENV === "production";

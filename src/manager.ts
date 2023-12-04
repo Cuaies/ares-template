@@ -1,11 +1,11 @@
 import { ShardingManager } from "discord.js";
 import { logger } from "./modules/logger/logger";
 import { LogMessagesCodes, LogScopes } from "./ts/enums";
-import path from "path";
+import { SHARDING_MANAGER_CLIENT_FILE } from "./lib/constants";
 import config from "config";
 
 const token = config.client.token;
-const manager = new ShardingManager(path.join(__dirname, "./client.js"), {
+const manager = new ShardingManager(SHARDING_MANAGER_CLIENT_FILE, {
   totalShards: "auto",
   token,
 });

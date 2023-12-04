@@ -1,4 +1,5 @@
 import { join } from "path";
+import { isProduction } from "../utils/helpers";
 
 /**
  * Represents the *absolute* path to the root directory.
@@ -56,4 +57,14 @@ export const LOCALIZATIONS_MANAGER_REQUIRED_PATH = join(
   MODULES_PATH,
   "localization",
   LOCALIZATIONS_MANAGER_REQUIRED_DIR
+);
+
+/**
+ * Represents an absolute path.
+ *
+ * This path is used by the sharding manager to spawn client shards.
+ */
+export const SHARDING_MANAGER_CLIENT_FILE = join(
+  SRC_PATH,
+  `client.${isProduction() ? "js" : "ts"}`
 );
