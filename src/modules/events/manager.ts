@@ -119,7 +119,7 @@ export class AresEventsManager extends AresCachedManager<
    */
   public async registerEventHandlers(): Promise<void> {
     this.cache.forEach((handler) => {
-      if (this.production && !handler.production) return;
+      if (this.isProduction && !handler.production) return;
 
       try {
         handler.once

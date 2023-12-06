@@ -45,7 +45,7 @@ describe("AresEventsManager", () => {
       });
 
       test("should display the results", async () => {
-        const mockDisplay = jest.spyOn(manager.results, "displayResults");
+        const mockDisplay = jest.spyOn(manager.results, "display");
         await manager.init();
         expect(mockDisplay).toHaveBeenCalledTimes(1);
       });

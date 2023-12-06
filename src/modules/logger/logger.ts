@@ -24,7 +24,7 @@ export class AresLogger extends AresBase {
     super();
 
     this.instance = createLogger({
-      level: this.production ? "info" : "silly",
+      level: this.isProduction ? "info" : "silly",
       silent: process.env.JEST_WORKER_ID !== undefined,
       format: combine(timestamp(), ms(), errors({ stack: true }), json()),
       transports: [
@@ -36,6 +36,8 @@ export class AresLogger extends AresBase {
         new File({
           filename: join(LOGS_DIR_PATH, "combined.log"),
           format: logFileFormat,
+          handleExceptions: true,
+          handleRejections: true,
         }),
       ],
       exceptionHandlers: [
