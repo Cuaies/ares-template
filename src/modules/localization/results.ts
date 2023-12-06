@@ -8,7 +8,7 @@ export default class AresLocalizationsManagerResults extends AresResults<Locale>
     super(scope);
   }
 
-  displayResults(): void {
+  display(): void {
     const { success, ok } = this.success;
 
     logger.log(

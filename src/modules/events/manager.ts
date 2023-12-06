@@ -37,7 +37,7 @@ export class AresEventsManager extends AresCachedManager<
   public async init(dirPath: string = EVENTS_MANAGER_REQUIRED_PATH) {
     await this.load(dirPath);
     await this.registerEventHandlers();
-    this.results.displayResults();
+    this.results.display();
   }
 
   /**

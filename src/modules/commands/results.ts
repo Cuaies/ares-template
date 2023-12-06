@@ -8,7 +8,7 @@ export default class AresCommandsManagerResults extends AresResults<AresApplicat
     super(scope);
   }
 
-  displayResults(): void {
+  display(): void {
     const { ok } = this.success;
 
     logger.log(

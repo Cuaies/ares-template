@@ -38,7 +38,7 @@ export class AresCommandsManager extends AresCachedManager<
     dirPath: string = COMMANDS_MANAGER_REQUIRED_PATH
   ): Promise<void> {
     await this.load(dirPath);
-    this.results.displayResults();
+    this.results.display();
   }
 
   /**

@@ -69,7 +69,7 @@ export class AresLocalizationsManager extends AresBaseManager {
     });
 
     this.results.setCached(Object.keys(this.instance.store.data) as Locale[]);
-    this.results.displayResults();
+    this.results.display();
   }
 
   /**

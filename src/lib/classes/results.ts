@@ -128,5 +128,5 @@ export abstract class AresResults<T> {
   /**
    * Displays the results of the loading operation.
    */
-  abstract displayResults(): void;
+  abstract display(): void;
 }

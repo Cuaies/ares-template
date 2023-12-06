@@ -11,7 +11,7 @@ export default class AresEventsManagerResults extends AresResults<
     super(scope);
   }
 
-  displayResults() {
+  display() {
     const { success, ok } = this.success;
 
     logger.log(
