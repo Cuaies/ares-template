@@ -1,6 +1,6 @@
 import { LogScopes } from "../../ts/enums";
 import { AresBaseModule } from "./baseModule";
-import { AresResults } from "./results";
+import { AresResults } from "./baseResults";
 import { AresClient } from "./client";
 import { AresManagerOptions } from "../../ts/types";
 import { Awaitable } from "discord.js";
@@ -12,6 +12,7 @@ import { types } from "util";
 export abstract class AresBaseManager extends AresBaseModule {
   /**
    * Results instance associated with the manager.
+   * @virtual
    */
   readonly results: InstanceType<typeof AresResults> = new AresResults(
     this.scope
@@ -36,6 +37,8 @@ export abstract class AresBaseManager extends AresBaseModule {
    *
    * @remarks
    * This method should be called after creating an instance of the class to perform any necessary setup or initialization.
+   *
+   * @sealed
    */
   public async init(opts: AresManagerOptions): Promise<void> {
     if (types.isAsyncFunction(this.setup)) {
