@@ -3,15 +3,16 @@ import { AresBase } from "./base";
 import { AresClient } from "./client";
 
 /**
- * The foundation of all modules.
+ * Represents the base class for modules.
  */
 export class AresBaseModule extends AresBase {
   /**
-   * Defines the scope, used to categorize and filter log entries.
+   * Represents the scope of the logger, enabling categorization and filtering of log entries.
    */
   readonly scope: LogScopes;
+
   /**
-   * The client that instantiated this class.
+   * Represents the client that instantiated this class.
    */
   readonly client: AresClient;
 
