@@ -1,9 +1,14 @@
 import { Collection } from "discord.js";
-import { LogErrorMessagesCodes, LogScopes } from "../../ts/enums";
+import {
+  LogErrorMessagesCodes,
+  LogMessagesCodes,
+  LogScopes,
+} from "../../ts/enums";
 import { AresClient } from "./client";
 import { AresCachedResults } from "./cacheResults";
 import { AresError } from "./error";
 import { AresBaseManager } from "./baseManager";
+import { logger } from "../../modules/logger/logger";
 
 /**
  * Abstract class that serves as the foundation for managing cached data.
@@ -31,16 +36,59 @@ export abstract class AresCachedManager<Key, Value> extends AresBaseManager {
   }
 
   /**
+   * Validates whether the entry meets the generic conditions for the manager cache.
+   * @param key - The key to validate.
+   * @param value - The value to validate.
+   * @returns `true` if the entry meets the generic conditions for the manager cache; otherwise `false`.
+   */
+  private checkGenericConditions(key: Key, value: Value): boolean {
+    if (this.cache.has(key)) {
+      logger.log(
+        this.scope,
+        LogMessagesCodes.CacheManagerDuplicatedEntry,
+        `${key}`
+      );
+
+      return false;
+    }
+    return true;
+  }
+
+  /**
+   * Validates whether the entry meets the specific conditions for the manager cache.
+   * @param value - The value to validate.
+   * @returns `true` if the entry meets the specific conditions for the manager cache; otherwise `false`.
+   *
+   * @remarks
+   * Method used in further entry validation, checking for specific conditions based on the entry type.
+   */
+  checkSpecificConditions?(value: Value): boolean;
+
+  /**
+   * Validates whether the value meets the conditions for the manager cache.
+   * @param value - The value to validate.
+   */
+  private isValidValue(key: Key, value: Value): boolean {
+    if (
+      !this.checkGenericConditions(key, value) ||
+      (this.checkSpecificConditions && !this.checkSpecificConditions(value))
+    ) {
+      this.results.uncached.add(`${key}`);
+      return false;
+    }
+    return true;
+  }
+
+  /**
    * Adds a new entry to the cache.
    * @param key - The key to add.
    * @param value - The value to add.
    */
   public add(key: Key, value: Value): void {
-    throw new AresError(
-      this.scope,
-      LogErrorMessagesCodes.MethodNotImplemented,
-      this.add.name
-    );
+    if (!this.isValidValue(key, value)) return;
+
+    this.cache.set(key, value);
+    this.results.cached.add(`${key}`);
   }
 
   /**

@@ -1,56 +1,31 @@
 import { LogScopes } from "../../ts/enums";
 import { AresResults } from "./baseResults";
 
+/**
+ * Represents the results of the caching operations of the cached manager.
+ * Extends the base results class and introduces sets for different types of results.
+ */
 export class AresCachedResults extends AresResults {
-  private _cached: Set<string> = new Set<string>();
+  /**
+   * A set containing the entries that were successfully cached.
+   */
+  public cached: Set<string>;
 
-  get cachedSize(): number {
-    return this._cached.size;
-  }
+  /**
+   * A set containing the entries that were valid but were disabled.
+   */
+  public disabled: Set<string>;
 
-  private _disabled: Set<string> = new Set<string>();
-
-  get disabledSize(): number {
-    return this._disabled.size;
-  }
-
-  private _uncached: Set<string> = new Set<string>();
-
-  get uncachedSize(): number {
-    return this._uncached.size;
-  }
+  /**
+   * A set containing the entries that were invalid and were not cached.
+   */
+  public uncached: Set<string>;
 
   constructor(scope: LogScopes) {
     super(scope);
-  }
 
-  public addCached(entry: string): this {
-    this._cached.add(entry);
-    return this;
-  }
-
-  public setCached(entry: string[]): this {
-    this._cached = new Set<string>(entry);
-    return this;
-  }
-
-  public addDisabled(entry: string): this {
-    this._disabled.add(entry);
-    return this;
-  }
-
-  public setDisabled(entry: string[]): this {
-    this._disabled = new Set<string>(entry);
-    return this;
-  }
-
-  public addUncached(entry: string | string): this {
-    this._uncached.add(entry);
-    return this;
-  }
-
-  public setUncached(entry: string[]): this {
-    this._uncached = new Set<string>(entry);
-    return this;
+    this.cached = new Set<string>();
+    this.disabled = new Set<string>();
+    this.uncached = new Set<string>();
   }
 }

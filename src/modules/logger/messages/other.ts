@@ -18,6 +18,9 @@ const {
 
   ManagerListCached,
   ManagerListUncached,
+  ManagerDisplayResults,
+
+  CacheManagerDuplicatedEntry,
 
   EventsManagerInvalidHandler,
   EventsManagerDuplicatedHandler,
@@ -206,6 +209,18 @@ export const logMessages = {
     return {
       level: "error",
       message,
+    };
+  },
+  [ManagerDisplayResults]: (status: ResultsStatus["ok"]) => {
+    return {
+      level: status === "ok" ? "info" : "error",
+      message: `Manager loaded [ok=${status}]`,
+    };
+  },
+  [CacheManagerDuplicatedEntry]: (entry: string) => {
+    return {
+      level: "warn",
+      message: `Duplicated entry [entry=${entry}]`,
     };
   },
 } satisfies Record<LogMessagesCodes, (...args: any[]) => LogEntry>;
