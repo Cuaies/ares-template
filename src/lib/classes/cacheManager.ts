@@ -61,8 +61,10 @@ export abstract class AresCachedManager<Key, Value> extends AresBaseManager {
    *
    * @remarks
    * Method used in further entry validation, checking for specific conditions based on the entry type.
+   *
+   * @virtual
    */
-  checkSpecificConditions?(value: Value): boolean;
+  checkSpecificConditions?(key: Key, value: Value): boolean;
 
   /**
    * Validates whether the value meets the conditions for the manager cache.
@@ -71,9 +73,11 @@ export abstract class AresCachedManager<Key, Value> extends AresBaseManager {
   private isValidValue(key: Key, value: Value): boolean {
     if (
       !this.checkGenericConditions(key, value) ||
-      (this.checkSpecificConditions && !this.checkSpecificConditions(value))
+      (this.checkSpecificConditions &&
+        !this.checkSpecificConditions(key, value))
     ) {
       this.results.uncached.add(`${key}`);
+      this.results.setStatus(false);
       return false;
     }
     return true;

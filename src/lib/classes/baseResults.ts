@@ -20,12 +20,12 @@ export class AresResults {
     this.scope = scope;
   }
 
-  public setStatus(): void {
-    throw new AresError(
-      this.scope,
-      LogErrorMessagesCodes.MethodNotImplemented,
-      this.setStatus.name
-    );
+  /**
+   * Sets the status.
+   * @param success - `true` if the operation was successful, `false` otherwise.
+   */
+  public setStatus(success: boolean): void {
+    this._success = success;
   }
 
   /**
