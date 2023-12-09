@@ -1,4 +1,5 @@
-import { LogScopes } from "../../ts/enums";
+import { logger } from "../../modules/logger/logger";
+import { LogMessagesCodes, LogScopes } from "../../ts/enums";
 import { AresResults } from "./baseResults";
 
 /**
@@ -27,5 +28,21 @@ export class AresCachedResults extends AresResults {
     this.cached = new Set<string>();
     this.disabled = new Set<string>();
     this.uncached = new Set<string>();
+  }
+
+  /**
+   * @override
+   */
+  public display() {
+    const { scope, status, cached, disabled, uncached } = this;
+
+    logger.log(
+      scope,
+      LogMessagesCodes.CacheManagerDisplayResults,
+      status,
+      cached,
+      disabled,
+      uncached
+    );
   }
 }

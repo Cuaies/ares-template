@@ -21,6 +21,7 @@ const {
   ManagerDisplayResults,
 
   CacheManagerDuplicatedEntry,
+  CacheManagerDisplayResults,
 
   EventsManagerInvalidHandler,
   EventsManagerDuplicatedHandler,
@@ -211,10 +212,21 @@ export const logMessages = {
       message,
     };
   },
-  [ManagerDisplayResults]: (status: ResultsStatus["ok"]) => {
+  [ManagerDisplayResults]: (status: ResultsStatus) => {
     return {
-      level: status === "ok" ? "info" : "error",
-      message: `Manager loaded [ok=${status}]`,
+      level: status.success ? "info" : "warn",
+      message: `Manager initialization finished [ok=${status.ok}]`,
+    };
+  },
+  [CacheManagerDisplayResults]: (
+    status: ResultsStatus,
+    cached,
+    disabled,
+    uncached
+  ) => {
+    return {
+      level: status.success ? "info" : "warn",
+      message: `Manager initialization finished [${cached.size} entries] [${disabled.size} current prototype(s)] [ok=${status.ok}]`,
     };
   },
   [CacheManagerDuplicatedEntry]: (entry: string) => {

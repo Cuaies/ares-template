@@ -1,4 +1,9 @@
-import { LogErrorMessagesCodes, LogScopes } from "../../ts/enums";
+import { logger } from "../../modules/logger/logger";
+import {
+  LogErrorMessagesCodes,
+  LogMessagesCodes,
+  LogScopes,
+} from "../../ts/enums";
 import { ResultsStatus } from "../../ts/types";
 import { AresError } from "./error";
 
@@ -23,11 +28,12 @@ export class AresResults {
     );
   }
 
+  /**
+   * @virtual
+   * */
   public display() {
-    throw new AresError(
-      this.scope,
-      LogErrorMessagesCodes.MethodNotImplemented,
-      this.display.name
-    );
+    const { scope, status } = this;
+
+    logger.log(scope, LogMessagesCodes.ManagerDisplayResults, status);
   }
 }
