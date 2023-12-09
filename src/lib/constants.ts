@@ -15,6 +15,12 @@ export const SRC_PATH = join(__dirname, "..");
 export const MODULES_PATH = join(__dirname, "..", "modules");
 
 /**
+ * Represents the *absolute* path to the `events/handlers/`,
+ * the directory where the event handlers are stored.
+ */
+export const EVENTS_HANDLERS_PATH = join(MODULES_PATH, "events", "handlers");
+
+/**
  * Represents the *absolute* path to the `logs/` directory,
  * the directory where the logs are stored.
  */
@@ -31,19 +37,6 @@ export const COMMANDS_MANAGER_REQUIRED_PATH = join(
   MODULES_PATH,
   "commands",
   COMMANDS_MANAGER_REQUIRED_DIR
-);
-
-/**
- * Represents the name of the directory that is required for the events manager to work.
- */
-export const EVENTS_MANAGER_REQUIRED_DIR = "handlers";
-/**
- * Represents the *absolute* path to the required directory.
- */
-export const EVENTS_MANAGER_REQUIRED_PATH = join(
-  MODULES_PATH,
-  "events",
-  EVENTS_MANAGER_REQUIRED_DIR
 );
 
 /**

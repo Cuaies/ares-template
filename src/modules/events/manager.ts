@@ -1,128 +1,54 @@
-import AresEventsManagerResults from "./results";
 import AresEventHandler from "./handler";
 import { basename } from "path";
-import { AresClient } from "../../lib/classes/client";
-import { logger } from "../logger/logger";
-import { getDirContent } from "../../utils/helpers";
-import { isAresEventHandler } from "../../utils/typeguards";
-import { AresError } from "../../lib/classes/error";
-import { AresCachedManager } from "../../lib/classes/cacheManager";
 import { ClientEvents } from "discord.js";
+import { AresCachedManager, AresClient, AresError } from "../../lib/classes";
 import {
   LogErrorMessagesCodes,
   LogMessagesCodes,
   LogScopes,
 } from "../../ts/enums";
-import {
-  EVENTS_MANAGER_REQUIRED_DIR,
-  EVENTS_MANAGER_REQUIRED_PATH,
-} from "../../lib/constants";
+import { getDirContent } from "../../utils/helpers";
+import { isAresEventHandler } from "../../utils/typeguards";
+import { logger } from "../logger/logger";
+import { AresManagerOptions } from "../../ts/types";
 
-/**
- * The events manager, responsible for handling the client's events.
- */
 export class AresEventsManager extends AresCachedManager<
   keyof ClientEvents,
   AresEventHandler
 > {
-  readonly results = new AresEventsManagerResults(this.scope);
-
   constructor(client: AresClient) {
     super(client, LogScopes.EventsManager);
   }
 
   /**
-   * @param dirPath Path to the event handlers' directory.
+   * @override
    */
-  public async init(dirPath: string = EVENTS_MANAGER_REQUIRED_PATH) {
-    await this.load(dirPath);
-    await this.registerEventHandlers();
-    this.results.display();
-  }
-
-  /**
-   * Fetches the event handlers from the supplied directory,
-   * and further processes them.
-   * @param dirPath Path to the event handlers directory.
-   */
-  public async load(dirPath: string): Promise<void> {
-    const dirContent = (await getDirContent(dirPath))[
-      EVENTS_MANAGER_REQUIRED_DIR
-    ];
-
-    if (!dirContent.validDir) {
-      throw new AresError(
-        this.scope,
-        LogErrorMessagesCodes.ManagerRequiredDir,
-        EVENTS_MANAGER_REQUIRED_DIR
-      );
-    }
-
-    for (const file of dirContent.files) {
-      await this.cacheEventHandler(file.path);
-    }
-  }
-
-  /**
-   * Caches the supplied handler, based on the validation results.
-   * @param filePath The path to the supplied handler.
-   */
-  private async cacheEventHandler(filePath: string): Promise<void> {
-    const handler: AresEventHandler = (await import(filePath)).default;
-    const filename = basename(filePath);
-
-    const valid = this.validateHandlerInput(handler, filename);
-    if (!valid) {
-      this.results.addUncached(filename);
-      return;
-    }
-
-    handler.production
-      ? this.results.addCached(handler)
-      : this.results.addDisabled(handler);
-    this.cache.set(handler.name, handler);
-  }
-
-  /**
-   * Verifies whether the supplied handler is valid or not
-   * and and performs validations.
-   * @param input The data to validate.
-   * @param filename The filename of the supplied input.
-   * @returns `true` if the input is valid, `false` otherwise.
-   */
-  private validateHandlerInput(input: unknown, filename: string): boolean {
-    if (!isAresEventHandler(input)) {
-      logger.log(
-        this.scope,
-        LogMessagesCodes.EventsManagerInvalidHandler,
-        filename
-      );
+  public checkSpecificConditions(
+    key: keyof ClientEvents,
+    value: AresEventHandler<keyof ClientEvents>
+  ): boolean {
+    if (!isAresEventHandler(value)) {
+      logger.log(this.scope, LogMessagesCodes.EventsManagerInvalidHandler, key);
 
       return false;
     }
 
-    if (this.cache.has(input.name)) {
-      logger.log(
-        this.scope,
-        LogMessagesCodes.EventsManagerDuplicatedHandler,
-        input.name
-      );
-
-      return false;
+    if (value.isDisabled) {
+      this.results.disabled.add(key);
     }
 
     return true;
   }
 
   /**
-   * Registers cached handlers.
+   * Adds a listener function for the cache's handlers.
    */
   public async registerEventHandlers(): Promise<void> {
     this.cache.forEach((handler) => {
-      if (this.isProduction && !handler.production) return;
+      if (this.isProduction && handler.isDisabled) return;
 
       try {
-        handler.once
+        handler.isOnce
           ? this.client.once(handler.name, (...props) =>
               handler.execute(...props)
             )
@@ -139,5 +65,30 @@ export class AresEventsManager extends AresCachedManager<
         logger.log(e as Error);
       }
     });
+  }
+
+  /**
+   * @override
+   */
+  public async setup(opts: AresManagerOptions) {
+    const content = (await getDirContent(opts.loader.dirPath))[
+      basename(opts.loader.dirPath)
+    ];
+
+    if (!content.validDir) {
+      throw new AresError(
+        this.scope,
+        LogErrorMessagesCodes.InvalidDirPath,
+        content.baseDirPath
+      );
+    }
+
+    for (const file of content.files) {
+      const handler = (await import(file.path)).default as AresEventHandler;
+
+      this.add(handler.name ?? file.filename, handler);
+    }
+
+    await this.registerEventHandlers();
   }
 }

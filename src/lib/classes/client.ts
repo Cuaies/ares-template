@@ -5,6 +5,7 @@ import { AresEventsManager } from "../../modules/events/manager";
 import { AresCommandsManager } from "../../modules/commands/manager";
 import { AresLocalizationsManager } from "../../modules/localization/manager";
 import config from "config";
+import { EVENTS_HANDLERS_PATH } from "../constants";
 
 /**
  * Client class used to interact with the Discord API.
@@ -35,7 +36,9 @@ export class AresClient extends Client {
    */
   async init(token: string) {
     try {
-      const eventsManagerInit = this.eventsManager?.init();
+      const eventsManagerInit = this.eventsManager?.init({
+        loader: { dirPath: EVENTS_HANDLERS_PATH },
+      });
       const commandsManagerInit = this.commandsManager?.init();
       const localizationsManagerInit = this.localizationsManager?.init();
 
