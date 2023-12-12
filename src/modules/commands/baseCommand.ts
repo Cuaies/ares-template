@@ -15,7 +15,7 @@ export abstract class AresBaseCommandData extends SharedNameAndDescription {
   /**
    * Whether to run in production or not.
    */
-  public production = false;
+  public isDisabled = true;
 
   /**
    * Sets the category of the handler.
@@ -28,8 +28,8 @@ export abstract class AresBaseCommandData extends SharedNameAndDescription {
   /**
    * Sets the disabled status of the handler.
    */
-  public setProduction(state: boolean) {
-    this.production = state;
+  public setDisabled(state: boolean) {
+    this.isDisabled = state;
     return this;
   }
 }

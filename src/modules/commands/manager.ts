@@ -1,122 +1,69 @@
-import { join, basename, dirname } from "path";
-import { AresClient } from "../../lib/classes/client";
-import { AresApplicationCommandType } from "../../ts/types";
+import { basename } from "path";
+import { AresCachedManager, AresClient, AresError } from "../../lib/classes";
+import { AresApplicationCommandType, AresManagerOptions } from "../../ts/types";
 import { getDirContent } from "../../utils/helpers";
 import { isAresApplicationCommandType } from "../../utils/typeguards";
 import { logger } from "../logger/logger";
-import AresCommandsManagerResults from "./results";
-import { AresError } from "../../lib/classes/error";
 import {
   LogErrorMessagesCodes,
   LogMessagesCodes,
   LogScopes,
 } from "../../ts/enums";
-import {
-  COMMANDS_MANAGER_REQUIRED_DIR,
-  COMMANDS_MANAGER_REQUIRED_PATH,
-} from "../../lib/constants";
-import { AresCachedManager } from "../../lib/classes/cacheManager";
-import { Snowflake } from "discord.js";
 
 /**
- * The commands manager, responsible for handling the application commands.
+ * Represents the client's commands manager.
  */
 export class AresCommandsManager extends AresCachedManager<
-  Snowflake,
+  string,
   AresApplicationCommandType
 > {
-  readonly results = new AresCommandsManagerResults(this.scope);
-
   constructor(client: AresClient) {
     super(client, LogScopes.CommandsManager);
   }
 
   /**
-   * @param dirPath Path to the commands' directory.
+   * @override
    */
-  public async init(
-    dirPath: string = COMMANDS_MANAGER_REQUIRED_PATH
-  ): Promise<void> {
-    await this.load(dirPath);
-    this.results.display();
-  }
-
-  /**
-   * Caches all of the application commands found.
-   * @param dirPath Path to the commands' directory.
-   */
-  public async load(dirPath: string): Promise<void> {
-    const dirContent = (await getDirContent(dirPath))[
-      COMMANDS_MANAGER_REQUIRED_DIR
-    ];
-
-    if (!dirContent.validDir) {
-      throw new AresError(
-        this.scope,
-        LogErrorMessagesCodes.ManagerRequiredDir,
-        COMMANDS_MANAGER_REQUIRED_DIR
-      );
-    }
-
-    for (const dir of Object.values(dirContent.subDirs)) {
-      for (const file of dir.files) {
-        await this.cacheCommand(file.path);
-      }
-    }
-  }
-
-  /**
-   * Caches a single application command.
-   */
-  private async cacheCommand(filePath: string): Promise<void> {
-    const command: AresApplicationCommandType = (await import(filePath))
-      .default;
-
-    const valid = this.validateCommand(command, filePath);
-    if (!valid) {
-      this.results.addUncached(basename(filePath));
-      return;
-    }
-
-    command.data.production
-      ? this.results.addCached(command)
-      : this.results.addDisabled(command);
-    this.cache.set(command.data.name, command);
-  }
-
-  /**
-   * Validates an application command's integrity.
-   */
-  private validateCommand(
-    command: AresApplicationCommandType,
-    filePath: string
+  protected checkSpecificConditions(
+    key: string,
+    value: AresApplicationCommandType
   ): boolean {
-    const dir = basename(dirname(filePath));
-    const file = basename(filePath);
-
-    if (!isAresApplicationCommandType(command)) {
-      logger.log(
-        this.scope,
-        LogMessagesCodes.CommandsManagerInvalidCommand,
-        join(dir, file)
-      );
+    if (!isAresApplicationCommandType(value)) {
+      logger.log(this.scope, LogMessagesCodes.CacheManagerInvalidEntry, key);
 
       return false;
     }
 
-    if (this.cache.has(command.data.name)) {
-      logger.log(
-        this.scope,
-        LogMessagesCodes.CommandsManagerDuplicatedCommand,
-        command.data.name,
-        join(dir, file)
-      );
-
-      return false;
+    if (value.data.isDisabled) {
+      this.results.disabled.add(key);
     }
-
-    // TODO: Add further validation.
 
     return true;
+  }
+
+  /**
+   * @override
+   */
+  protected async setup(opts: AresManagerOptions) {
+    const content = (await getDirContent(opts.loader.dirPath))[
+      basename(opts.loader.dirPath)
+    ];
+
+    if (!content.validDir) {
+      throw new AresError(
+        this.scope,
+        LogErrorMessagesCodes.InvalidDirPath,
+        content.baseDirPath
+      );
+    }
+
+    for (const dir of Object.values(content.subDirs)) {
+      for (const file of dir.files) {
+        const handler = (await import(file.path))
+          .default as AresApplicationCommandType;
+
+        this.add(handler.data?.name ?? file.filename, handler);
+      }
+    }
   }
 }
