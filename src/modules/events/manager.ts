@@ -12,6 +12,9 @@ import { isAresEventHandler } from "../../utils/typeguards";
 import { logger } from "../logger/logger";
 import { AresManagerOptions } from "../../ts/types";
 
+/**
+ * Represents the client's events manager.
+ */
 export class AresEventsManager extends AresCachedManager<
   keyof ClientEvents,
   AresEventHandler
@@ -23,9 +26,9 @@ export class AresEventsManager extends AresCachedManager<
   /**
    * @override
    */
-  public checkSpecificConditions(
+  protected checkSpecificConditions(
     key: keyof ClientEvents,
-    value: AresEventHandler<keyof ClientEvents>
+    value: AresEventHandler
   ): boolean {
     if (!isAresEventHandler(value)) {
       logger.log(this.scope, LogMessagesCodes.EventsManagerInvalidHandler, key);
@@ -43,7 +46,7 @@ export class AresEventsManager extends AresCachedManager<
   /**
    * Adds a listener function for the cache's handlers.
    */
-  public async registerEventHandlers(): Promise<void> {
+  private async registerEventHandlers(): Promise<void> {
     this.cache.forEach((handler) => {
       if (this.isProduction && handler.isDisabled) return;
 
@@ -70,7 +73,7 @@ export class AresEventsManager extends AresCachedManager<
   /**
    * @override
    */
-  public async setup(opts: AresManagerOptions) {
+  protected async setup(opts: AresManagerOptions) {
     const content = (await getDirContent(opts.loader.dirPath))[
       basename(opts.loader.dirPath)
     ];

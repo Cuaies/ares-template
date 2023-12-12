@@ -11,7 +11,7 @@ export class AresBase {
    *
    * @returns `true` if the application is running in production mode; otherwise, `false`.
    */
-  public get isProduction(): boolean {
+  protected get isProduction(): boolean {
     return isProduction();
   }
 

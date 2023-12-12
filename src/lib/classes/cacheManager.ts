@@ -22,7 +22,7 @@ export abstract class AresCachedManager<Key, Value> extends AresBaseManager {
    * Results instance associated with the manager.
    * @override
    */
-  readonly results = new AresCachedResults(this.scope);
+  protected readonly results = new AresCachedResults(this.scope);
 
   /**
    * The collection of cached items.
@@ -64,7 +64,7 @@ export abstract class AresCachedManager<Key, Value> extends AresBaseManager {
    *
    * @virtual
    */
-  checkSpecificConditions?(key: Key, value: Value): boolean;
+  protected checkSpecificConditions?(key: Key, value: Value): boolean;
 
   /**
    * Validates whether the value meets the conditions for the manager cache.

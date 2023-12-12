@@ -14,9 +14,8 @@ export abstract class AresBaseManager extends AresBaseModule {
    * Results instance associated with the manager.
    * @virtual
    */
-  readonly results: InstanceType<typeof AresResults> = new AresResults(
-    this.scope
-  );
+  protected readonly results: InstanceType<typeof AresResults> =
+    new AresResults(this.scope);
 
   protected constructor(client: AresClient, scope: LogScopes) {
     super(client, scope);
@@ -29,8 +28,10 @@ export abstract class AresBaseManager extends AresBaseModule {
    * Orchestrates the initialization process, encompassing the setup of
    * foundational data and execution of preparatory tasks. This ensures that the manager is equipped to
    * handle interactions and various operations effectively.
+   *
+   * @virtual
    */
-  abstract setup(opts: AresManagerOptions): Awaitable<void>;
+  protected abstract setup(opts: AresManagerOptions): Awaitable<void>;
 
   /**
    * Initializes the manager.

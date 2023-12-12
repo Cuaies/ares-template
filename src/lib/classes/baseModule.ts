@@ -9,7 +9,7 @@ export class AresBaseModule extends AresBase {
   /**
    * Represents the scope of the logger, enabling categorization and filtering of log entries.
    */
-  readonly scope: LogScopes;
+  protected readonly scope: LogScopes;
 
   /**
    * Represents the client that instantiated this class.
