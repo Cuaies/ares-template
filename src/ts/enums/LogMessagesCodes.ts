@@ -18,6 +18,7 @@ export enum LogMessagesCodes {
   ManagerListUncached,
   ManagerDisplayResults,
 
+  CacheManagerInvalidEntry,
   CacheManagerDuplicatedEntry,
   CacheManagerDisplayResults,
 

@@ -20,6 +20,7 @@ const {
   ManagerListUncached,
   ManagerDisplayResults,
 
+  CacheManagerInvalidEntry,
   CacheManagerDuplicatedEntry,
   CacheManagerDisplayResults,
 
@@ -233,6 +234,12 @@ export const logMessages = {
     return {
       level: "warn",
       message: `Duplicated entry [entry=${entry}]`,
+    };
+  },
+  [CacheManagerInvalidEntry]: (id: string) => {
+    return {
+      level: "warn",
+      message: `Entry does not pass validation requirements [id=${id}]`,
     };
   },
 } satisfies Record<LogMessagesCodes, (...args: any[]) => LogEntry>;

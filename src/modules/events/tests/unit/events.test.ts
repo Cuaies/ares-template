@@ -54,7 +54,7 @@ describe("AresEventsManager", () => {
       expect(manager.cache.size).toBe(0);
       expect(logMock).toBeCalledWith(
         LogScopes.EventsManager,
-        LogMessagesCodes.EventsManagerInvalidHandler,
+        LogMessagesCodes.CacheManagerInvalidEntry,
         expect.anything()
       );
     });

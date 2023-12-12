@@ -31,7 +31,7 @@ export class AresEventsManager extends AresCachedManager<
     value: AresEventHandler
   ): boolean {
     if (!isAresEventHandler(value)) {
-      logger.log(this.scope, LogMessagesCodes.EventsManagerInvalidHandler, key);
+      logger.log(this.scope, LogMessagesCodes.CacheManagerInvalidEntry, key);
 
       return false;
     }
