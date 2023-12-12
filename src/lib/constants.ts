@@ -36,27 +36,7 @@ export const LOCALIZATION_HANDLERS_PATH = join(
   "handlers"
 );
 
-/**
- * Represents the *absolute* path to the required directory.
- */
-export const COMMANDS_MANAGER_REQUIRED_PATH = join(
-  MODULES_PATH,
-  "commands",
-  COMMANDS_MANAGER_REQUIRED_DIR
-);
-
-/**
- * Represents the name of the directory that is required for the localizations manager to work.
- */
-export const LOCALIZATIONS_MANAGER_REQUIRED_DIR = "locales";
-/**
- * Represents the *absolute* path to the required directory.
- */
-export const LOCALIZATIONS_MANAGER_REQUIRED_PATH = join(
-  MODULES_PATH,
-  "localization",
-  LOCALIZATIONS_MANAGER_REQUIRED_DIR
-);
+export const LOGS_DIR_PATH = join(ROOT_PATH, "logs");
 
 /**
  * Represents an absolute path.
