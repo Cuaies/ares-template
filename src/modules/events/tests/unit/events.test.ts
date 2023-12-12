@@ -25,7 +25,9 @@ describe("AresEventsManager", () => {
 
   describe("add()", () => {
     test("should cache valid event handlers", () => {
-      const handler = new AresEventHandler("debug", false, false, (data) => {});
+      const handler = new AresEventHandler("debug", false, false, (data) => {
+        return;
+      });
 
       // TODO: fix typing
       manager.add(handler.name, handler as AresEventHandler);
@@ -35,7 +37,9 @@ describe("AresEventsManager", () => {
     });
 
     test("should not cache duplicated event handlers", () => {
-      const handler = new AresEventHandler("debug", false, false, (data) => {});
+      const handler = new AresEventHandler("debug", false, false, (data) => {
+        return;
+      });
 
       manager.add(handler.name, handler as AresEventHandler);
       manager.add(handler.name, handler as AresEventHandler);

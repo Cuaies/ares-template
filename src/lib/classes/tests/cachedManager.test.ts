@@ -9,7 +9,9 @@ jest.mock("../../../utils/helpers", () => ({
 }));
 
 class TestAresCachedManager extends AresCachedManager<string, number> {
-  setup() {}
+  setup() {
+    return;
+  }
 }
 
 describe("AresCachedManager", () => {

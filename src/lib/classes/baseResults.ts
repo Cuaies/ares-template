@@ -1,14 +1,9 @@
 import { logger } from "../../modules/logger/logger";
-import {
-  LogErrorMessagesCodes,
-  LogMessagesCodes,
-  LogScopes,
-} from "../../ts/enums";
+import { LogMessagesCodes, LogScopes } from "../../ts/enums";
 import { ResultsStatus } from "../../ts/types";
-import { AresError } from "./error";
 
 export class AresResults {
-  private _success: boolean = true;
+  private _success = true;
 
   get status(): ResultsStatus {
     return this._success
