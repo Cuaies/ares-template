@@ -13,34 +13,13 @@ class TestAresCachedManager extends AresCachedManager<string, number> {
 }
 
 describe("AresCachedManager", () => {
-  let manager: AresCachedManager<string, number>;
+  let client: AresClient;
+  let manager: TestAresCachedManager;
   const logMock = jest.spyOn(logger, "log");
 
   beforeEach(() => {
-    manager = new TestAresCachedManager(
-      new AresClient({ partials: [], intents: [] }),
-      LogScopes.TEST
-    );
-  });
-
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-
-  describe("constructor()", () => {
-    test("should instantiate with empty collections", () => {
-      expect(manager.cache).toBeInstanceOf(Collection);
-      expect(manager.cache.size).toBe(0);
-
-      expect(manager.results.cached).toBeInstanceOf(Set);
-      expect(manager.results.cached.size).toBe(0);
-
-      expect(manager.results.disabled).toBeInstanceOf(Set);
-      expect(manager.results.disabled.size).toBe(0);
-
-      expect(manager.results.uncached).toBeInstanceOf(Set);
-      expect(manager.results.uncached.size).toBe(0);
-    });
+    client = new AresClient({ intents: [] });
+    manager = new TestAresCachedManager(client, LogScopes.TEST);
   });
 
   describe("add()", () => {
@@ -52,8 +31,6 @@ describe("AresCachedManager", () => {
 
       expect(manager.cache.get(key)).toBe(value);
       expect(manager.cache.size).toBe(1);
-
-      expect(manager.results.cached).toContain(key);
     });
 
     test("should not add a duplicated entry", () => {
@@ -66,11 +43,8 @@ describe("AresCachedManager", () => {
       expect(manager.cache.get(key)).toBe(value);
       expect(manager.cache.size).toBe(1);
 
-      expect(manager.results.cached).toContain(key);
-      expect(manager.results.uncached).toContain(key);
-
       expect(logMock).toHaveBeenCalledWith(
-        manager.scope,
+        LogScopes.TEST,
         LogMessagesCodes.CacheManagerDuplicatedEntry,
         key
       );
