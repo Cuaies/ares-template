@@ -1,5 +1,5 @@
 import { ShardingManager } from "discord.js";
-import { logger } from "./modules/logger/logger";
+import { logger } from "./modules/logger/module";
 import { LogMessagesCodes, LogScopes } from "./ts/enums";
 import { SHARDING_MANAGER_CLIENT_FILE } from "./lib/constants";
 import config from "config";

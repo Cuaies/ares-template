@@ -2,7 +2,7 @@ import { Collection } from "discord.js";
 import { AresClient } from "..";
 import { LogMessagesCodes, LogScopes } from "../../../ts/enums";
 import { AresCachedManager } from "../cacheManager";
-import { logger } from "../../../modules/logger/logger";
+import { logger } from "../../../modules/logger/module";
 
 jest.mock("../../../utils/helpers", () => ({
   isProduction: jest.fn(() => false),

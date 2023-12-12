@@ -8,7 +8,7 @@ import { AresClient } from "./client";
 import { AresCachedResults } from "./cacheResults";
 import { AresError } from "./error";
 import { AresBaseManager } from "./baseManager";
-import { logger } from "../../modules/logger/logger";
+import { logger } from "../../modules/logger/module";
 
 /**
  * Abstract class that serves as the foundation for managing cached data.

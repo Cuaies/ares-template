@@ -1,4 +1,4 @@
-import { logger } from "../../modules/logger/logger";
+import { logger } from "../../modules/logger/module";
 import { LogMessagesCodes, LogScopes } from "../../ts/enums";
 import { ResultsStatus } from "../../ts/types";
 

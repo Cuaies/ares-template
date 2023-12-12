@@ -3,7 +3,7 @@ import { AresCachedManager, AresClient, AresError } from "../../lib/classes";
 import { AresApplicationCommandType, AresManagerOptions } from "../../ts/types";
 import { getDirContent } from "../../utils/helpers";
 import { isAresApplicationCommandType } from "../../utils/typeguards";
-import { logger } from "../logger/logger";
+import { logger } from "../logger/module";
 import {
   LogErrorMessagesCodes,
   LogMessagesCodes,

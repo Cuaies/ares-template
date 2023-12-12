@@ -1,6 +1,6 @@
 import { AresError } from "../../../../lib/classes/error";
 import { LogEntryFormatter } from "../../formatter";
-import { AresLogger } from "../../logger";
+import { AresLogger } from "../../module";
 import { logErrorMessages, logMessages } from "../../messages";
 import {
   LogErrorMessagesCodes,
@@ -23,12 +23,10 @@ describe("AresLogger", () => {
     test("should properly initialize in production", () => {
       process.env.NODE_ENV = "production";
       const loggerProd = new AresLogger();
-      expect(loggerProd.isProduction).toBe(true);
       expect(loggerProd.instance.level).toBe("info");
     });
 
     test("should properly initialize in development", () => {
-      expect(logger.isProduction).toBe(false);
       expect(logger.instance.level).toBe("silly");
     });
   });

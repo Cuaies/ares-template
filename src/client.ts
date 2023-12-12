@@ -1,5 +1,5 @@
 import { AresClient } from "./lib/classes/client";
-import { logger } from "./modules/logger/logger";
+import { logger } from "./modules/logger/module";
 import config from "config";
 
 const client = new AresClient({

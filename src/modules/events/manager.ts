@@ -9,7 +9,7 @@ import {
 } from "../../ts/enums";
 import { getDirContent } from "../../utils/helpers";
 import { isAresEventHandler } from "../../utils/typeguards";
-import { logger } from "../logger/logger";
+import { logger } from "../logger/module";
 import { AresManagerOptions } from "../../ts/types";
 
 /**

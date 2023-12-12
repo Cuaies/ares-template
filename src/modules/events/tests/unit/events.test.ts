@@ -1,7 +1,7 @@
 import { ClientEvents } from "discord.js";
 import { AresClient } from "../../../../lib/classes";
 import { LogMessagesCodes, LogScopes } from "../../../../ts/enums";
-import { logger } from "../../../logger/logger";
+import { logger } from "../../../logger/module";
 import AresEventHandler from "../../handler";
 import { AresEventsManager } from "../../manager";
 

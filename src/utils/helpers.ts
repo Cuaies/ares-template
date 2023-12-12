@@ -2,7 +2,7 @@ import { DirContent } from "../ts/interfaces/dirContent.interface";
 import { readdir } from "fs/promises";
 import { basename, resolve, join } from "path";
 import { Dirent } from "fs";
-import { logger } from "../modules/logger/logger";
+import { logger } from "../modules/logger/module";
 
 /**
  * Recursively get the contents of a directory.

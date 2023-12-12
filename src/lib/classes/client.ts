@@ -1,5 +1,5 @@
 import { Client, ClientOptions } from "discord.js";
-import { logger } from "../../modules/logger/logger";
+import { logger } from "../../modules/logger/module";
 import { LogMessagesCodes, LogScopes } from "../../ts/enums";
 import { AresEventsManager } from "../../modules/events/manager";
 import { AresCommandsManager } from "../../modules/commands/manager";
