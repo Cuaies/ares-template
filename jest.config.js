@@ -5,6 +5,7 @@ module.exports = {
   roots: [
     "<rootDir>/src/modules/logger/tests",
     "<rootDir>/src/modules/events/tests",
+    "<rootDir>/src/modules/commands/tests",
     "<rootDir>/src/lib/classes/tests",
   ],
   collectCoverage: true,
