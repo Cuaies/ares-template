@@ -15,21 +15,27 @@ export const SRC_PATH = join(__dirname, "..");
 export const MODULES_PATH = join(__dirname, "..", "modules");
 
 /**
- * Represents the *absolute* path to the `events/handlers/`,
+ * Represents the *absolute* path to `events/handlers/`,
  * the directory where the event handlers are stored.
  */
-export const EVENTS_HANDLERS_PATH = join(MODULES_PATH, "events", "handlers");
+export const EVENT_HANDLERS_PATH = join(MODULES_PATH, "events", "handlers");
 
 /**
- * Represents the *absolute* path to the `logs/` directory,
- * the directory where the logs are stored.
+ * Represents the *absolute* path to `commands/handlers/`,
+ * the directory where the command handlers are stored.
  */
-export const LOGS_DIR_PATH = join(__dirname, "..", "..", "logs");
+export const COMMAND_HANDLERS_PATH = join(MODULES_PATH, "commands", "handlers");
 
 /**
- * Represents the name of the directory that is required for the commands manager to work.
+ * Represents the *absolute* path to `localization/handlers/`,
+ * the directory where the localization handlers are stored.
  */
-export const COMMANDS_MANAGER_REQUIRED_DIR = "commands";
+export const LOCALIZATION_HANDLERS_PATH = join(
+  MODULES_PATH,
+  "localization",
+  "handlers"
+);
+
 /**
  * Represents the *absolute* path to the required directory.
  */

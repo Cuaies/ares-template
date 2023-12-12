@@ -5,7 +5,11 @@ import { AresEventsManager } from "../../modules/events/manager";
 import { AresCommandsManager } from "../../modules/commands/manager";
 import { AresLocalizationsManager } from "../../modules/localization/manager";
 import config from "config";
-import { EVENTS_HANDLERS_PATH } from "../constants";
+import {
+  COMMAND_HANDLERS_PATH,
+  EVENT_HANDLERS_PATH,
+  LOCALIZATION_HANDLERS_PATH,
+} from "../constants";
 
 /**
  * Client class used to interact with the Discord API.
@@ -37,10 +41,14 @@ export class AresClient extends Client {
   async init(token: string) {
     try {
       const eventsManagerInit = this.eventsManager?.init({
-        loader: { dirPath: EVENTS_HANDLERS_PATH },
+        loader: { dirPath: EVENT_HANDLERS_PATH },
       });
-      const commandsManagerInit = this.commandsManager?.init();
-      const localizationsManagerInit = this.localizationsManager?.init();
+      const commandsManagerInit = this.commandsManager?.init({
+        loader: { dirPath: COMMAND_HANDLERS_PATH },
+      });
+      const localizationsManagerInit = this.localizationsManager?.init({
+        loader: { dirPath: LOCALIZATION_HANDLERS_PATH },
+      });
 
       await Promise.all([
         eventsManagerInit,
@@ -58,6 +66,7 @@ export class AresClient extends Client {
       LogMessagesCodes.ClientAttemptingLogin,
       this.shard!.ids.toString()
     );
+
     await this.login(token);
   }
 }
