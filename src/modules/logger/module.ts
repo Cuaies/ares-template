@@ -51,6 +51,8 @@ export class AresLogger extends AresBase {
     this.instance.add(
       new Console({
         format: consoleFormat,
+        handleExceptions: true,
+        handleRejections: true,
       })
     );
   }
