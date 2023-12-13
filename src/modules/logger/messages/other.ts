@@ -22,6 +22,7 @@ const {
 
   CacheManagerInvalidEntry,
   CacheManagerDuplicatedEntry,
+  CacheManagerAddedEntry,
   CacheManagerDisplayResults,
 
   EventsManagerInvalidHandler,
@@ -240,6 +241,12 @@ export const logMessages = {
     return {
       level: "warn",
       message: `Entry does not pass validation requirements [id=${id}]`,
+    };
+  },
+  [CacheManagerAddedEntry]: (id: string) => {
+    return {
+      level: "verbose",
+      message: `Added entry to the cache [id=${id}]`,
     };
   },
 } satisfies Record<LogMessagesCodes, (...args: any[]) => LogEntry>;

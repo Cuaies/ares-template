@@ -93,6 +93,8 @@ export abstract class AresCachedManager<Key, Value> extends AresBaseManager {
 
     this.cache.set(key, value);
     this.results.cached.add(`${key}`);
+
+    logger.log(this.scope, LogMessagesCodes.CacheManagerAddedEntry, `${key}`);
   }
 
   /**

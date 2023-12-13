@@ -20,6 +20,7 @@ export enum LogMessagesCodes {
 
   CacheManagerInvalidEntry,
   CacheManagerDuplicatedEntry,
+  CacheManagerAddedEntry,
   CacheManagerDisplayResults,
 
   EventsManagerInvalidHandler,
