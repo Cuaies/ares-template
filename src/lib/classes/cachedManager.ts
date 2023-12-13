@@ -5,7 +5,7 @@ import {
   LogScopes,
 } from "../../ts/enums";
 import { AresClient } from "./client";
-import { AresCachedResults } from "./cacheResults";
+import { AresCachedResults } from "./cachedResults";
 import { AresError } from "./error";
 import { AresBaseManager } from "./baseManager";
 import { logger } from "../../modules/logger/module";
