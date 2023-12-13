@@ -1,4 +1,4 @@
-import { LogErrorMessagesCodes } from "../../../ts/enums";
+import { LogErrorMessagesCodes } from "../../../../ts/enums";
 
 const {
   TEST,

@@ -3,12 +3,12 @@ import {
   LogErrorMessagesCodes,
   LogMessagesCodes,
   LogScopes,
-} from "../../ts/enums";
+} from "../../../ts/enums";
 import {
   isErrorLogMessageCode,
   isLogMessageCode,
   isLogScope,
-} from "../../utils/typeguards";
+} from "../../../utils/typeguards";
 import { logErrorMessages, logMessages } from "./messages";
 
 /**

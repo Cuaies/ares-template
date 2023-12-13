@@ -1,7 +1,7 @@
 import { AresError } from "../../../../lib/classes/error";
-import { LogEntryFormatter } from "../../formatter";
+import { LogEntryFormatter } from "../../structures/formatter";
 import { AresLogger } from "../../module";
-import { logErrorMessages, logMessages } from "../../messages";
+import { logErrorMessages, logMessages } from "../../structures/messages";
 import {
   LogErrorMessagesCodes,
   LogMessagesCodes,

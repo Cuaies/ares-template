@@ -1,10 +1,10 @@
 import { transports, createLogger, Logger, format } from "winston";
 import { join } from "path";
-import { logFileFormat, consoleFormat } from "./formats";
+import { logFileFormat, consoleFormat } from "./structures/formats";
 import { LogMessagesCodes, LogScopes } from "../../ts/enums";
-import { logMessages } from "./messages";
+import { logMessages } from "./structures/messages";
 import { isLogScope } from "../../utils/typeguards";
-import { LogEntryFormatter } from "./formatter";
+import { LogEntryFormatter } from "./structures/";
 import { LOGS_DIR_PATH } from "../../lib/constants";
 import { AresBase } from "../../lib/classes/base";
 

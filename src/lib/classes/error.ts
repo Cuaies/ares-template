@@ -1,5 +1,5 @@
-import { LogEntryFormatter } from "../../modules/logger/formatter";
-import { logErrorMessages } from "../../modules/logger/messages";
+import { LogEntryFormatter } from "../../modules/logger/structures/formatter";
+import { logErrorMessages } from "../../modules/logger/structures/messages";
 import { LogErrorMessagesCodes, LogScopes } from "../../ts/enums";
 
 /**

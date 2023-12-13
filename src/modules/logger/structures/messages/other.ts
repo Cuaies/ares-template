@@ -1,6 +1,6 @@
 import { LogEntry } from "winston";
-import { LogMessagesCodes } from "../../../ts/enums";
-import { ResultsStatus } from "../../../ts/types";
+import { LogMessagesCodes } from "../../../../ts/enums";
+import { ResultsStatus } from "../../../../ts/types";
 
 const {
   TEST,
