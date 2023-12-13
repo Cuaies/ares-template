@@ -5,8 +5,7 @@ export enum LogErrorMessagesCodes {
   TEST = 400,
   TESTARGS,
 
-  InvalidDirPath,
-
-  ManagerRequiredDir,
   MethodNotImplemented,
+
+  InvalidDirPath,
 }
