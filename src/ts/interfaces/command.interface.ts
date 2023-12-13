@@ -1,10 +1,9 @@
-import { AresChatInputCommandBuilder } from "../../modules/commands/chatInputCommand";
-import { AresContextMenuCommandBuilder } from "../../modules/commands/contextMenuCommand";
 import {
   Awaitable,
   CommandInteraction,
   ContextMenuCommandInteraction,
 } from "discord.js";
+import { AresApplicationCommandBuilder } from "../types";
 
 export interface AresApplicationCommandInterface<
   Interaction extends ContextMenuCommandInteraction | CommandInteraction
@@ -12,10 +11,10 @@ export interface AresApplicationCommandInterface<
   /**
    * Defines the data of the application command.
    */
-  readonly data: AresChatInputCommandBuilder | AresContextMenuCommandBuilder;
+  readonly data: AresApplicationCommandBuilder;
 
   /**
-   * Command function meant to execute once an appropriate interaction is received.
+   * Defines the function to execute when the application command is called.
    */
   readonly execute: (interaction: Interaction) => Awaitable<void>;
 }

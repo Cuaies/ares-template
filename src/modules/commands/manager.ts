@@ -1,6 +1,6 @@
 import { basename } from "path";
 import { AresCachedManager, AresClient, AresError } from "../../lib/classes";
-import { AresApplicationCommandType, AresManagerOptions } from "../../ts/types";
+import { AresApplicationCommand, AresManagerOptions } from "../../ts/types";
 import { getDirContent } from "../../utils/helpers";
 import { isAresApplicationCommandType } from "../../utils/typeguards";
 import { logger } from "../logger/module";
@@ -10,12 +10,9 @@ import {
   LogScopes,
 } from "../../ts/enums";
 
-/**
- * Represents the client's commands manager.
- */
 export class AresCommandsManager extends AresCachedManager<
   string,
-  AresApplicationCommandType
+  AresApplicationCommand
 > {
   constructor(client: AresClient) {
     super(client, LogScopes.CommandsManager);
@@ -26,7 +23,7 @@ export class AresCommandsManager extends AresCachedManager<
    */
   protected checkSpecificConditions(
     key: string,
-    value: AresApplicationCommandType
+    value: AresApplicationCommand
   ): boolean {
     if (!isAresApplicationCommandType(value)) {
       logger.log(this.scope, LogMessagesCodes.CacheManagerInvalidEntry, key);
@@ -37,6 +34,8 @@ export class AresCommandsManager extends AresCachedManager<
     if (value.data.isDisabled) {
       this.results.disabled.add(key);
     }
+
+    // TODO: add validation for required properties
 
     return true;
   }
@@ -60,7 +59,7 @@ export class AresCommandsManager extends AresCachedManager<
     for (const dir of Object.values(content.subDirs)) {
       for (const file of dir.files) {
         const handler = (await import(file.path))
-          .default as AresApplicationCommandType;
+          .default as AresApplicationCommand;
 
         this.add(handler.data?.name ?? file.filename, handler);
       }

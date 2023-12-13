@@ -1,7 +1,14 @@
-import { AresChatInputCommand } from "../modules/commands/chatInputCommand";
+import {
+  AresChatInputCommandBuilder,
+  AresContextMenuCommandBuilder,
+} from "../modules/commands/structures/handlers/builders";
+import { AresChatInputCommand } from "../modules/commands/structures/handlers";
 
 export type ResultsStatus = { success: boolean; ok: "ok" | "non-ok" };
-export type AresApplicationCommandType = AresChatInputCommand;
+export type AresApplicationCommand = AresChatInputCommand;
+export type AresApplicationCommandBuilder =
+  | AresChatInputCommandBuilder
+  | AresContextMenuCommandBuilder;
 
 /**
  * Manager options.
