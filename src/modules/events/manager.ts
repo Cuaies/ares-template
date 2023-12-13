@@ -1,4 +1,4 @@
-import AresEventHandler from "./handler";
+import { AresEventHandler } from "./structures/handlers";
 import { basename } from "path";
 import { ClientEvents } from "discord.js";
 import { AresCachedManager, AresClient, AresError } from "../../lib/classes";

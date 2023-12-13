@@ -1,7 +1,7 @@
 import { AresClient } from "../../../../lib/classes";
 import { LogMessagesCodes, LogScopes } from "../../../../ts/enums";
 import { logger } from "../../../logger/module";
-import AresEventHandler from "../../handler";
+import { AresEventHandler } from "../../structures/handlers";
 import { AresEventsManager } from "../../manager";
 
 jest.mock("../../../../utils/helpers", () => ({

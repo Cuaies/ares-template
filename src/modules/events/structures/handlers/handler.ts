@@ -1,6 +1,6 @@
 import { Awaitable, ClientEvents } from "discord.js";
 
-export default class AresEventHandler<
+export class AresEventHandler<
   Event extends keyof ClientEvents = keyof ClientEvents
 > {
   constructor(

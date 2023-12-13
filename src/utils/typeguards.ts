@@ -5,7 +5,7 @@ import {
 } from "../ts/enums";
 import { AresChatInputCommand } from "../modules/commands/structures/handlers";
 import { AresApplicationCommand } from "../ts/types";
-import AresEventHandler from "../modules/events/handler";
+import { AresEventHandler } from "../modules/events/structures/handlers";
 import { Locale } from "discord.js";
 
 export const isLogScope = (str: unknown): str is LogScopes =>
