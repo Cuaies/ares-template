@@ -1,6 +1,6 @@
 import { AresClient } from "..";
 import { LogMessagesCodes, LogScopes } from "../../../ts/enums";
-import { AresCachedManager } from "../cacheManager";
+import { AresCachedManager } from "../cachedManager";
 import { logger } from "../../../modules/logger/module";
 
 jest.mock("../../../utils/helpers", () => ({
