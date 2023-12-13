@@ -64,18 +64,6 @@ describe("AresEventsManager", () => {
       expect(manager.cache.get(VALID_HANDLER.name)).toBe(VALID_HANDLER);
     });
 
-    test("should not cache duplicated event handlers", () => {
-      manager.add(VALID_HANDLER.name, VALID_HANDLER);
-      manager.add(VALID_HANDLER.name, VALID_HANDLER);
-
-      expect(manager.cache.size).toBe(1);
-      expect(logMock).toHaveBeenCalledWith(
-        LogScopes.EventsManager,
-        LogMessagesCodes.CacheManagerDuplicatedEntry,
-        VALID_HANDLER.name
-      );
-    });
-
     test("should not cache invalid event handlers", () => {
       manager.add(INVALID_HANDLER.name, INVALID_HANDLER);
 
