@@ -42,7 +42,8 @@ export class AresLogger extends AresBase {
       ],
       exceptionHandlers: [
         new File({
-          filename: join(LOGS_DIR_PATH, "exceptions.json"),
+          filename: join(LOGS_DIR_PATH, "exceptions.log"),
+          format: logFileFormat,
         }),
       ],
     });
