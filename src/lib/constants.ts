@@ -45,5 +45,5 @@ export const LOGS_DIR_PATH = join(ROOT_PATH, "logs");
  */
 export const SHARDING_MANAGER_CLIENT_FILE = join(
   SRC_PATH,
-  `client.${isProduction() ? "js" : "ts"}`
+  `client.${isProduction() ? "js" : "js"}`
 );
