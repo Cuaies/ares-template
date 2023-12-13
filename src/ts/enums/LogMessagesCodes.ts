@@ -5,17 +5,11 @@ export enum LogMessagesCodes {
   TEST = 100,
   TESTARGS,
 
-  ShardingManagerShardCreate,
-  ShardingManagerShardReady,
-  ShardingManagerShardDeath,
-  ShardingManagerShardReconnecting,
-  ShardingManagerSuccess,
+  StringLogVerbose,
+  StringLogDebug,
+  StringLogWarn,
+  StringLogError,
 
-  ClientAttemptingLogin,
-  ClientReady,
-
-  ManagerListCached,
-  ManagerListUncached,
   ManagerDisplayResults,
 
   CacheManagerInvalidEntry,
@@ -23,23 +17,14 @@ export enum LogMessagesCodes {
   CacheManagerAddedEntry,
   CacheManagerDisplayResults,
 
-  EventsManagerInvalidHandler,
-  EventsManagerDuplicatedHandler,
+  ShardingManagerShardCreate,
+  ShardingManagerShardReady,
+  ShardingManagerShardDeath,
+  ShardingManagerShardReconnecting,
+  ShardingManagerSuccess,
+
   EventsManagerListeningForEvent,
-  EventsManagerCachedEventsResult,
 
-  CommandsManagerCachedCommandsResult,
-  CommandsManagerInvalidCommand,
-  CommandsManagerDuplicatedCommand,
-
-  LocalizationManagerResultsDisplay,
-
-  InvalidLocaleDirName,
-  InvalidDir,
-
-  FileIteration,
-  StringLogVerbose,
-  StringLogDebug,
-  StringLogWarn,
-  StringLogError,
+  ClientAttemptingLogin,
+  ClientReady,
 }

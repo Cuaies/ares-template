@@ -1,23 +1,16 @@
 import { LogEntry } from "winston";
 import { LogMessagesCodes } from "../../../ts/enums";
 import { ResultsStatus } from "../../../ts/types";
-import { Locale } from "discord.js";
 
 const {
   TEST,
   TESTARGS,
 
-  ShardingManagerShardCreate,
-  ShardingManagerShardReady,
-  ShardingManagerShardDeath,
-  ShardingManagerShardReconnecting,
-  ShardingManagerSuccess,
+  StringLogVerbose,
+  StringLogDebug,
+  StringLogWarn,
+  StringLogError,
 
-  ClientAttemptingLogin,
-  ClientReady,
-
-  ManagerListCached,
-  ManagerListUncached,
   ManagerDisplayResults,
 
   CacheManagerInvalidEntry,
@@ -25,25 +18,16 @@ const {
   CacheManagerAddedEntry,
   CacheManagerDisplayResults,
 
-  EventsManagerInvalidHandler,
-  EventsManagerDuplicatedHandler,
+  ShardingManagerShardCreate,
+  ShardingManagerShardReady,
+  ShardingManagerShardDeath,
+  ShardingManagerShardReconnecting,
+  ShardingManagerSuccess,
+
   EventsManagerListeningForEvent,
-  EventsManagerCachedEventsResult,
 
-  CommandsManagerCachedCommandsResult,
-  CommandsManagerInvalidCommand,
-  CommandsManagerDuplicatedCommand,
-
-  LocalizationManagerResultsDisplay,
-
-  InvalidLocaleDirName,
-  InvalidDir,
-
-  FileIteration,
-  StringLogVerbose,
-  StringLogDebug,
-  StringLogWarn,
-  StringLogError,
+  ClientAttemptingLogin,
+  ClientReady,
 } = LogMessagesCodes;
 
 export const logMessages = {
@@ -59,6 +43,69 @@ export const logMessages = {
       message: `Test message with args [strArg=${strArg}]`,
     };
   },
+
+  [StringLogVerbose]: (message: string) => {
+    return {
+      level: "verbose",
+      message,
+    };
+  },
+  [StringLogDebug]: (message: string) => {
+    return {
+      level: "debug",
+      message,
+    };
+  },
+  [StringLogWarn]: (message: string) => {
+    return {
+      level: "warn",
+      message,
+    };
+  },
+  [StringLogError]: (message: string) => {
+    return {
+      level: "error",
+      message,
+    };
+  },
+
+  [ManagerDisplayResults]: (status: ResultsStatus) => {
+    return {
+      level: status.success ? "info" : "warn",
+      message: `Manager initialization finished [ok=${status.ok}]`,
+    };
+  },
+
+  [CacheManagerInvalidEntry]: (id: string) => {
+    return {
+      level: "warn",
+      message: `Entry does not pass validation requirements [id=${id}]`,
+    };
+  },
+  [CacheManagerDuplicatedEntry]: (entry: string) => {
+    return {
+      level: "warn",
+      message: `Duplicated entry [entry=${entry}]`,
+    };
+  },
+  [CacheManagerAddedEntry]: (id: string) => {
+    return {
+      level: "verbose",
+      message: `Added entry to the cache [id=${id}]`,
+    };
+  },
+  [CacheManagerDisplayResults]: (
+    status: ResultsStatus,
+    cached,
+    disabled,
+    uncached
+  ) => {
+    return {
+      level: status.success ? "info" : "warn",
+      message: `Manager initialization finished [${cached.size} cached] [${disabled.size} current prototype(s)] [${uncached.size} invalid] [ok=${status.ok}]`,
+    };
+  },
+
   [ShardingManagerShardCreate]: (id: number) => {
     return {
       level: "info",
@@ -89,6 +136,14 @@ export const logMessages = {
       message: `Manager successfully spawned shards [amount=${amount}]`,
     };
   },
+
+  [EventsManagerListeningForEvent]: (event: string) => {
+    return {
+      level: "verbose",
+      message: `Listening for event [event=${event}]`,
+    };
+  },
+
   [ClientAttemptingLogin]: (shard: string) => {
     return {
       level: "verbose",
@@ -99,154 +154,6 @@ export const logMessages = {
     return {
       level: "info",
       message: `Login successful [shard=${shard}] [username=${username}]`,
-    };
-  },
-  [EventsManagerDuplicatedHandler]: (handler: string) => {
-    return {
-      level: "warn",
-      message: `Duplicated handler name [handler=${handler}]`,
-    };
-  },
-  [EventsManagerInvalidHandler]: (handler: string) => {
-    return {
-      level: "warn",
-      message: `Handler name does not match allowed values [handler=${handler}]`,
-    };
-  },
-  [EventsManagerListeningForEvent]: (event: string) => {
-    return {
-      level: "verbose",
-      message: `Listening for event [event=${event}]`,
-    };
-  },
-  [EventsManagerCachedEventsResult]: (
-    loadedCount: number,
-    prototypesCount: number,
-    status: ResultsStatus["ok"]
-  ) => {
-    return {
-      level: status === "ok" ? "info" : "error",
-      message: `Loaded ${loadedCount} handlers [${prototypesCount} current prototype(s)] [${status}]`,
-    };
-  },
-  [CommandsManagerCachedCommandsResult]: (
-    loadedCount: number,
-    prototypesCount: number,
-    status: ResultsStatus["ok"]
-  ) => {
-    return {
-      level: status === "ok" ? "info" : "error",
-      message: `Loaded ${loadedCount} commands [${prototypesCount} current prototype(s)] [${status}]`,
-    };
-  },
-  [CommandsManagerInvalidCommand]: (filePath: string) => {
-    return {
-      level: "warn",
-      message: `Invalid application command [path=${filePath}]`,
-    };
-  },
-  [CommandsManagerDuplicatedCommand]: (command: string, filePath: string) => {
-    return {
-      level: "warn",
-      message: `Duplicated application command [command=${command}] [path=${filePath}]`,
-    };
-  },
-  [LocalizationManagerResultsDisplay]: (
-    loadedCount: number,
-    status: ResultsStatus["ok"]
-  ) => {
-    return {
-      level: "info",
-      message: `Loaded ${loadedCount} locales [${status}]`,
-    };
-  },
-  [InvalidLocaleDirName]: (dirName: string) => {
-    return {
-      level: "warn",
-      message: `Invalid locale directory name [dirName=${dirName}]`,
-    };
-  },
-  [InvalidDir]: (dirName: string) => {
-    return {
-      level: "warn",
-      message: `Invalid directory [dirName=${dirName}]`,
-    };
-  },
-  [ManagerListCached]: (entries: string[]) => {
-    return {
-      level: "info",
-      message: `Cached entries list: ${entries.join(", ")}`,
-    };
-  },
-  [ManagerListUncached]: (entries: string[]) => {
-    return {
-      level: "warn",
-      message: `Invalid entries list: ${entries.join(", ")}`,
-    };
-  },
-  [FileIteration]: (handler: string, file: string) => {
-    return {
-      level: "debug",
-      message: `File iteration [handler=${handler}, file=${file}]`,
-    };
-  },
-  [StringLogVerbose]: (message: string) => {
-    return {
-      level: "verbose",
-      message,
-    };
-  },
-  [StringLogDebug]: (message: string) => {
-    return {
-      level: "debug",
-      message,
-    };
-  },
-  [StringLogWarn]: (message: string) => {
-    return {
-      level: "warn",
-      message,
-    };
-  },
-  [StringLogError]: (message: string) => {
-    return {
-      level: "error",
-      message,
-    };
-  },
-  [ManagerDisplayResults]: (status: ResultsStatus) => {
-    return {
-      level: status.success ? "info" : "warn",
-      message: `Manager initialization finished [ok=${status.ok}]`,
-    };
-  },
-  [CacheManagerDisplayResults]: (
-    status: ResultsStatus,
-    cached,
-    disabled,
-    uncached
-  ) => {
-    return {
-      level: status.success ? "info" : "warn",
-      message: `Manager initialization finished [${cached.size} entries] [${disabled.size} current prototype(s)] [ok=${status.ok}]`,
-    };
-  },
-  [CacheManagerDuplicatedEntry]: (entry: string) => {
-    return {
-      level: "warn",
-      message: `Duplicated entry [entry=${entry}]`,
-    };
-  },
-  [CacheManagerInvalidEntry]: (id: string) => {
-    return {
-      level: "warn",
-      message: `Entry does not pass validation requirements [id=${id}]`,
-    };
-  },
-  [CacheManagerAddedEntry]: (id: string) => {
-    return {
-      level: "verbose",
-      message: `Added entry to the cache [id=${id}]`,
     };
   },
 } satisfies Record<LogMessagesCodes, (...args: any[]) => LogEntry>;
