@@ -1,4 +1,3 @@
-import { Collection } from "discord.js";
 import { AresClient } from "..";
 import { LogMessagesCodes, LogScopes } from "../../../ts/enums";
 import { AresCachedManager } from "../cacheManager";
