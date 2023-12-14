@@ -1,0 +1,20 @@
+{
+  "navigationLinks": {
+    "GitHub": "https://github.com/cuaies/ares-template"
+  },
+  "searchGroupBoosts": {
+    "Classes": 1.5
+  },
+  "$schema": "https://typedoc.org/schema.json",
+  "plugin": ["@mxssfd/typedoc-theme", "typedoc-plugin-merge-modules"],
+  "sort": ["static-first", "kind", "enum-value-ascending"],
+  "entryPoints": ["./src/"],
+  "entryPointStrategy": "expand",
+  "includeVersion": true,
+  "exclude": ["./src/config/**/*"],
+  "out": "./docs",
+  "tsconfig": "tsconfig.json",
+  "mergeModulesRenameDefaults": true,
+  "mergeModulesMergeMode": "project",
+  "name": "Ares Template"
+}
