@@ -10,6 +10,8 @@
     "lint:fix": "npm run lint -- --fix",
     "prettier": "npx prettier . --ignore-unknown --check",
     "prettier:fix": "npm run prettier -- --write",
+    "docs": "typedoc --options typedoc.json",
+    "docs:watch": "typedoc --options typedoc.json --watch",
     "development": "npm run build && node ./dist/index.js",
     "release": "release-it"
   },
