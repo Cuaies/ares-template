@@ -1,6 +1,9 @@
 import * as c from "config";
 import * as DefaultConfig from "../config/default";
 
+/**
+ * @ignore
+ */
 type AresConfig = typeof DefaultConfig;
 
 declare module "config" {
