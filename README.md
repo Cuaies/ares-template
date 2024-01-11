@@ -3,7 +3,7 @@
 ![GitHub License](https://img.shields.io/github/license/cuaies/ares-template)
 ![GitHub package.json version (subfolder of monorepo)](https://img.shields.io/github/package-json/v/cuaies/ares-template)
 
-Versatile and customizable template, designed to kickstart your projects with a strong foundation. If you're seeking a reliable and efficient platform to kickstart your journey, this template serves as a structured starting point, saving you valuable time and effort.
+A versatile and customizable template designed to kickstart your projects with a robust foundation. If you're looking to save valuable time and effort while having the ability to focus on the enjoyable aspect of client development, look no further.
 
 ## Links
 
@@ -42,13 +42,13 @@ $ cd repo
 
 4. Install dependencies:
 
-Fetch the dependencies required to by the project:
+Fetch the dependencies required by the project:
 
 ```bash
 $ npm ci
 ```
 
-5. Configure the template to match your project needs.
+5. Configure the template to match your project's needs.
 
 For more information on how to configure the template, refer to the [guide][guide].
 
