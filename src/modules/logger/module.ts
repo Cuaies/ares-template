@@ -58,6 +58,8 @@ export class AresLogger extends AresBase {
   }
 
   /**
+   * @overload
+   *
    * Records a message through the transports.
    * @param scope Scope of the log message.
    * @param code Code of the log message.
@@ -69,6 +71,8 @@ export class AresLogger extends AresBase {
     ...args: Parameters<(typeof logMessages)[Code]>
   ): Logger;
   /**
+   * @overload
+   *
    * Records an error through the transports.
    * @param error Error to log.
    */
