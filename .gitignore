@@ -37,4 +37,5 @@ coverage/
 shared/locales/*
 
 # Project-specific files
+docs/
 src/modules/*/handlers/
