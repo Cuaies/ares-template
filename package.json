@@ -12,7 +12,10 @@
     "prettier:fix": "npm run prettier -- --write",
     "docs": "typedoc --options typedoc.json",
     "docs:watch": "typedoc --options typedoc.json --watch",
-    "development": "npm run build && node ./dist/index.js",
+    "start": "tsx ./src/index.ts --trace-warnings",
+    "start:watch": "tsx watch ./src/index.ts --trace-warnings",
+    "prestart:prod": "npm run build",
+    "start:prod": "NODE_ENV=production node ./dist/index.js",
     "release": "release-it"
   },
   "devDependencies": {
@@ -33,6 +36,7 @@
     "prettier": "2.8.8",
     "release-it": "^16.2.0",
     "ts-jest": "^29.1.1",
+    "tsx": "^4.7.0",
     "typedoc": "^0.25.4",
     "typedoc-plugin-merge-modules": "^5.1.0",
     "typescript": "^5.1.3",

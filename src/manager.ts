@@ -6,6 +6,7 @@ import config from "config";
 
 const token = config.client.token;
 const manager = new ShardingManager(SHARDING_MANAGER_CLIENT_FILE, {
+  execArgv: ["-r", "tsx/cjs"],
   totalShards: "auto",
   token,
 });
