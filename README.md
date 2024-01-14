@@ -56,7 +56,9 @@ For more information on how to configure the template, refer to the [guide][guid
 
 Start the development server to begin working on your project:
 
-_Work in progress._
+```bash
+npm run start
+```
 
 ## Contributing
 
