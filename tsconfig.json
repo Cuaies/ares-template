@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "typeRoots": ["./node_modules/@types", "./ts"],
+    "typeRoots": ["./node_modules/@types", "./ts/typings"],
     "target": "es2022",
     "module": "commonjs",
     "rootDir": "./src",

@@ -1,5 +1,5 @@
 import * as c from "config";
-import * as DefaultConfig from "../config/default";
+import * as DefaultConfig from "../../../config/default";
 
 /**
  * @ignore
